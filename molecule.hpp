@@ -4,7 +4,6 @@
 #include <map>
 #include <iostream>
 
-
 #include "chain.hpp"
 #include "residue.hpp"
 #include "atom.hpp"
@@ -15,9 +14,10 @@ class Molecule
 	public:
 		Molecule();
 		bool hasChain(std::string chainIdentifer);
-		Chain getChain(std::string chainIdentifer);
+		Chain& getChain(std::string chainIdentifer);
 		void addChain(Chain chain);
 		int countChains();
+		void printMolecule(std::ostream& out) const;
 		
 	private:
 		std::map<std::string, Chain> chains;

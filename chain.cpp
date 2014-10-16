@@ -11,7 +11,7 @@ Chain::Chain()
 
 Chain::Chain(string identifer) : identifer(identifer)
 {
-
+	
 }
 
 void Chain::addResidue(Residue residue)
@@ -19,7 +19,7 @@ void Chain::addResidue(Residue residue)
 	residues[residue.getNumber()] = residue;
 }
 
-Residue Chain::getResidue(int residueNumber)
+Residue& Chain::getResidue(int residueNumber)
 {
 	return residues[residueNumber];
 }
@@ -32,4 +32,20 @@ bool Chain::hasResidue(int residueNumber)
 string Chain::getIdentifer()
 {
 	return identifer;
+}
+
+void Chain::printChain(ostream& out) const
+{
+	out << "<chain indentifer=" << identifer << " residuesCount="<< residues.size()  << "   ";
+    for (map<int, Residue>::const_iterator it=residues.begin(); it!=residues.end(); ++it) {
+		out << it->second << " ";
+	}
+
+	 out << ">" ;
+}
+
+ostream &operator<<( ostream &out, Chain const& chain )
+{
+	chain.printChain(out);
+	return out ;
 }

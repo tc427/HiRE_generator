@@ -12,7 +12,7 @@ bool Molecule::hasChain(std::string chainIdentifer)
 	return chains.count(chainIdentifer);
 }
 
-Chain Molecule::getChain(std::string chainIdentifer)
+Chain& Molecule::getChain(std::string chainIdentifer)
 {
 	return chains[chainIdentifer];
 }
@@ -27,8 +27,19 @@ int Molecule::countChains()
 	return chains.size();
 }
 
+void Molecule::printMolecule(ostream& out) const
+{
+	out << "\n\n<molecule chainsCount=" << chains.size() << "   ";
+	for (map<string, Chain>::const_iterator it=chains.begin(); it!=chains.end(); ++it) {
+		out << it->second << " ";
+	}
+
+	
+	 out << ">" ;
+}
+
 ostream &operator<<( ostream &out, Molecule const& molecule )
 {
-	out << "<molecule chainsCount=" << molecule.chains.size() << ">" ;
+	molecule.printMolecule(out);
     return out ;
 }

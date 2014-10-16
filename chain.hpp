@@ -12,12 +12,14 @@ class Chain
 		Chain();
 		Chain(std::string identifer);	
 		void addResidue(Residue residue);
-		Residue getResidue(int residueNumber);
+		Residue& getResidue(int residueNumber);
 		bool hasResidue(int residueNumber);
-		
 		std::string getIdentifer();
+		void printChain(std::ostream& out) const;
 		
 	private:
 		std::map<int, Residue> residues;
 		std::string identifer;
+		
+	friend std::ostream& operator<< (std::ostream& flux, Chain const& chain);
 };
