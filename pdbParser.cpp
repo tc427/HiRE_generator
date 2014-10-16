@@ -52,7 +52,7 @@ Atom pdbParser::getAtomFromLine(std::string line)
 	trim(sY);
 	trim(sZ);
 		
-	return Atom(lexical_cast<int>(sNumber), name, type, Coordinates(lexical_cast<float>(sX), lexical_cast<float>(sY), lexical_cast<float>(sZ)) );
+	return Atom(lexical_cast<int>(sNumber), name, type, Vector(lexical_cast<float>(sX), lexical_cast<float>(sY), lexical_cast<float>(sZ)) );
 }
 
 Molecule pdbParser::parsePdb(ifstream& pdbFile)

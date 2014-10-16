@@ -1,10 +1,9 @@
 #pragma once
 
 #include <string>
-#include <vector>
 #include <iostream>
 
-#include "coordinates.hpp"
+#include "vector.hpp"
 
 class Atom
 {
@@ -12,18 +11,19 @@ class Atom
 	public:
 		Atom();
 		Atom(int number, std::string name, std::string type);
-		Atom(int number, std::string name, std::string type, Coordinates coordinates);
+		Atom(int number, std::string name, std::string type, Vector coordinates);
 		int getNumber();
 		std::string getType();
-		void setCoordinates(Coordinates coordinates);
-		Coordinates getCoordinates();
+		std::string getName();
+		void setCoordinates(Vector coordinates);
+		Vector& getCoordinates();
 	
 	
 	private:
 		int number;
 		std::string name;
 		std::string type;
-		Coordinates coordinates;
+		Vector coordinates;
 		
 	friend std::ostream& operator<< (std::ostream& flux, Atom const& atom);
 };

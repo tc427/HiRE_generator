@@ -34,6 +34,11 @@ string Chain::getIdentifer()
 	return identifer;
 }
 
+std::map<int, Residue>& Chain::getResidues()
+{
+	return residues;
+}
+
 void Chain::printChain(ostream& out) const
 {
 	out << "<chain indentifer=" << identifer << " residuesCount="<< residues.size()  << "   ";

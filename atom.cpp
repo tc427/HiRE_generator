@@ -12,7 +12,7 @@ Atom::Atom(int number, string name, string type) : number(number), name(name), t
 	
 }
 
-Atom::Atom(int number, string name, string type, Coordinates coordinates) : number(number), name(name), type(type), coordinates(coordinates)
+Atom::Atom(int number, string name, string type, Vector coordinates) : number(number), name(name), type(type), coordinates(coordinates)
 {
 	
 }
@@ -28,12 +28,18 @@ string Atom::getType()
 }
 
 
-void Atom::setCoordinates(Coordinates coordinates)
+string Atom::getName()
+{
+	return name;
+}
+
+
+void Atom::setCoordinates(Vector coordinates)
 {
 	coordinates = coordinates;
 }
 
-Coordinates Atom::getCoordinates()
+Vector& Atom::getCoordinates()
 {
 	return coordinates;
 }
@@ -41,6 +47,6 @@ Coordinates Atom::getCoordinates()
 
 ostream &operator<<( ostream &out, Atom const& atom )
 {
-	out << "<atom number=" << atom.number << " name=" << atom.name << " type=" << atom.type << " coordinates= " << atom.coordinates << ">" ;
+	out << "<atom number=" << atom.number << " name=" << atom.name << " type=" << atom.type << " vector= " << atom.coordinates << ">" ;
     return out ;
 }

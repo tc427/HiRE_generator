@@ -14,17 +14,17 @@ Residue::Residue()
 
 void Residue::addAtom(Atom atom)
 {
-	atoms[atom.getNumber()] = atom;
+	atoms[atom.getName()] = atom;
 }
 
-Atom& Residue::getAtom(int atomNumber)
+Atom& Residue::getAtom(string atomName)
 {
-	return atoms[atomNumber];
+	return atoms[atomName];
 }
 
-bool Residue::hasAtom(int atomNumber)
+bool Residue::hasAtom(string atomName)
 {
-	return atoms.count(atomNumber);
+	return atoms.count(atomName);
 }
 
 int Residue::getNumber()
@@ -41,7 +41,7 @@ string Residue::getType()
 void Residue::printResidue(ostream& out) const
 {
 	out << "<residueNumber=" << number << " residueType=" <<  type << " atomsCount="<< atoms.size()  << "   ";
-    for (map<int, Atom>::const_iterator it=atoms.begin(); it!=atoms.end(); ++it) {
+    for (map<string, Atom>::const_iterator it=atoms.begin(); it!=atoms.end(); ++it) {
 		out << it->second << " ";
 	}
 

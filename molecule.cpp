@@ -27,6 +27,11 @@ int Molecule::countChains()
 	return chains.size();
 }
 
+map<std::string, Chain>& Molecule::getChains()
+{
+	return chains;
+}
+
 void Molecule::printMolecule(ostream& out) const
 {
 	out << "\n\n<molecule chainsCount=" << chains.size() << "   ";
@@ -34,7 +39,6 @@ void Molecule::printMolecule(ostream& out) const
 		out << it->second << " ";
 	}
 
-	
 	 out << ">" ;
 }
 

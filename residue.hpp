@@ -13,8 +13,8 @@ class Residue
 		Residue(int number, std::string type);
 	
 		void addAtom(Atom atom);
-		Atom& getAtom(int atomNumber);
-		bool hasAtom(int atomNumber);
+		Atom& getAtom(std::string atomName);
+		bool hasAtom(std::string atomName);
 	
 		int getNumber();
 		std::string getType();
@@ -22,7 +22,7 @@ class Residue
 		void printResidue(std::ostream& out) const;
 	
 	private:
-		std::map<int, Atom> atoms;
+		std::map<std::string, Atom> atoms;
 		int number;
 		std::string type;
 		

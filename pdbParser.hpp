@@ -13,7 +13,7 @@
 #include "residue.hpp"
 #include "chain.hpp"
 #include "molecule.hpp"
-#include "coordinates.hpp"
+#include "vector.hpp"
 
 class pdbParser
 {
