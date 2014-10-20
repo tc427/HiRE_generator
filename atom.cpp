@@ -12,9 +12,9 @@ Atom::Atom(int number, string name, string type) : number(number), name(name), t
 	
 }
 
-Atom::Atom(int number, string name, string type, Vector coordinates) : number(number), name(name), type(type), coordinates(coordinates)
+Atom::Atom(int number, string name, string type, Vector3d coordinates) : number(number), name(name), type(type)
 {
-	
+	addCoordinates(coordinates);
 }
 
 int Atom::getNumber()
@@ -34,12 +34,12 @@ string Atom::getName()
 }
 
 
-void Atom::setCoordinates(Vector coordinates)
+void Atom::addCoordinates(Vector3d coord)
 {
-	coordinates = coordinates;
+	coordinates.push_back(coord);
 }
 
-Vector& Atom::getCoordinates()
+vector<Vector3d>& Atom::getCoordinates()
 {
 	return coordinates;
 }
@@ -47,6 +47,6 @@ Vector& Atom::getCoordinates()
 
 ostream &operator<<( ostream &out, Atom const& atom )
 {
-	out << "<atom number=" << atom.number << " name=" << atom.name << " type=" << atom.type << " vector= " << atom.coordinates << ">" ;
+	out << "<atom number=" << atom.number << " name=" << atom.name << " type=" << atom.type << " numberOfFrames=" << atom.coordinates.size() << ">" ;
     return out ;
 }

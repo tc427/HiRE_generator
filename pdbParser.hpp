@@ -4,7 +4,7 @@
 #include <boost/lexical_cast.hpp> // for string to int conversion
 
 #include <iostream>
-#include <list>
+#include <vector>
 #include <string>
 #include <fstream>
 #include <stdlib.h>
@@ -13,7 +13,7 @@
 #include "residue.hpp"
 #include "chain.hpp"
 #include "molecule.hpp"
-#include "vector.hpp"
+#include "vector3d.hpp"
 
 class pdbParser
 {
@@ -23,6 +23,7 @@ class pdbParser
 
 	private:
 		static bool checkAtomLine(std::string line);
+		static bool checkAtomModel(std::string line);
 		static Atom getAtomFromLine(std::string line);
 		static Molecule parsePdb(std::ifstream& pdbFile);
 };

@@ -36,38 +36,36 @@ bool pdbParser::checkAtomLine(string line)
 	return false;
 }
 
-Atom pdbParser::getAtomFromLine(std::string line)
+bool pdbParser::checkAtomModel(string line)
 {
-	string sNumber = line.substr(6,5);
-	string name = line.substr(12,4);
-	string type = line.substr(76,2);
-	string sX = line.substr(30,8);
-	string sY = line.substr(38,8);
-	string sZ = line.substr(46,8);
-	
-	trim(name);
-	trim(type);
-	trim(sNumber);
-	trim(sX);
-	trim(sY);
-	trim(sZ);
-		
-	return Atom(lexical_cast<int>(sNumber), name, type, Vector(lexical_cast<float>(sX), lexical_cast<float>(sY), lexical_cast<float>(sZ)) );
+	if(line.length()>5) {
+		if(line.substr(0,5) == "MODEL") {
+			return true; } }
+	return false;
 }
 
 Molecule pdbParser::parsePdb(ifstream& pdbFile)
 {
+	string line;
 	Molecule molecule;
 	
-	string line;
+	int count(0);
+	
 	while(getline(pdbFile, line))  // tant que l'on peut mettre la line dans "contenu"
 	{
+		if(checkAtomModel(line))
+		{
+			//cout << "lecture frame : " << count << "\r";
+			count++;
+		}
 		if(checkAtomLine(line))
 		{
 			string sChain = line.substr(21,1);
 			string sResidueNumber = line.substr(22,4);
+			string atomName = line.substr(12,4);
 			trim(sChain);
 			trim(sResidueNumber);
+			trim(atomName);
 			
 			int residueNumber = lexical_cast<int>(sResidueNumber);
 			
@@ -82,9 +80,28 @@ Molecule pdbParser::parsePdb(ifstream& pdbFile)
 				trim(sResidueType);
 				molecule.getChain(sChain).addResidue(Residue(residueNumber,sResidueType));
 			}
-			molecule.getChain(sChain).getResidue(residueNumber).addAtom(getAtomFromLine(line));
+			if(!molecule.getChain(sChain).getResidue(residueNumber).hasAtom(atomName))
+			{
+				string sAtomNumber = line.substr(6,5);
+				string atomType = line.substr(76,2);
+				
+				trim(atomType);
+				trim(sAtomNumber);
+				
+				molecule.getChain(sChain).getResidue(residueNumber).addAtom(Atom(lexical_cast<int>(sAtomNumber), atomName, atomType ));
+				
+			}
+			string sX = line.substr(30,8);
+			string sY = line.substr(38,8);
+			string sZ = line.substr(46,8);
+		
+			trim(sX);
+			trim(sY);
+			trim(sZ);
+		
+			molecule.getChain(sChain).getResidue(residueNumber).getAtom(atomName).addCoordinates(Vector3d(lexical_cast<float>(sX), lexical_cast<float>(sY), lexical_cast<float>(sZ)));
 		}
 	}
-	
+
 	return molecule;
 }
