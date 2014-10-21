@@ -15,11 +15,11 @@
 using namespace std;
 
 
-int main()
+int main(int argc, char ** argv)
 {
 	//trjconv -f min.xtc -o traj.pdb -s conf_initiale_RNA.pdb
 	
-	Molecule molecule = pdbParser::getMoleculeFromPdb("traj.pdb");
+	Molecule molecule = pdbParser::getMoleculeFromPdb(argv[1]);
 	Analysis analysis(molecule);
 	analysis.plotAntiSyn();
 

@@ -49,20 +49,43 @@ void Analysis::plotAntiSyn()
 	cout << "from matplotlib.lines import Line2D" << endl;
 	cout << "import pylab # the matlab-like interface of matplotlib import numpy" << endl;
 	cout << "import numpy" << endl << endl;
-
+	cout << "import math" << endl << endl;
+	
+	cout << "for resNumber in dic:" << endl;
+	cout << "	angles = dic[resNumber]" << endl;
+	cout << "	values,bins=numpy.histogram(angles,bins=36)" << endl;
+	cout << "	pylab.bar(left=bins[:-1],height=values,width=10);" << endl;
+	cout << "	pylab.xlim( (0,360) )" << endl;
+	cout << "	pylab.title('Residue number '+str(resNumber))" << endl;
+	cout << "	pylab.savefig(str(resNumber)+'.png')" << endl;
+	cout << "	pylab.clf()" << endl;
+	cout << "for resNumber in dic:" << endl;
+	cout << "	angles = dic[resNumber]" << endl;
+	cout << "	values,bins=numpy.histogram(angles,bins=36)" << endl;
+	cout << "	pylab.bar(left=bins[:-1],height=[ math.log(v)  if v!=0 else 0 for v in values] ,width=10);" << endl;
+	cout << "	pylab.xlim( (0,360) )" << endl;
+	cout << "	pylab.title('Residue number '+str(resNumber))" << endl;
+ 	cout << "	pylab.savefig('log_'+str(resNumber)+'.png')" << endl;
+	cout << "	pylab.clf()" << endl;
 	cout << "for resNumber in dic:" << endl;
 	cout << "	angles = dic[resNumber]" << endl;
 	cout << "	rad_angles = [elem*(numpy.pi/180) for elem in angles]" << endl;
-
 	cout << "	values,bins=numpy.histogram(rad_angles,bins=36)" << endl;
 	cout << "	pylab.axes(polar=True);" << endl;
 	cout << "	pylab.bar(left=bins[:-1],height=values,width=2*numpy.pi/36);" << endl;
 	cout << "	pylab.title('Residue number '+str(resNumber))" << endl;
-	cout << "	pylab.savefig(str(resNumber)+'.png')" << endl;
+	cout << "	pylab.savefig('polar_'+str(resNumber)+'.png')" << endl;
 	cout << "	pylab.clf()" << endl;
-	
-	
-}
+	cout << "for resNumber in dic:" << endl;
+	cout << "	angles = dic[resNumber]" << endl;
+	cout << "	rad_angles = [elem*(numpy.pi/180) for elem in angles]" << endl;
+	cout << "	values,bins=numpy.histogram(rad_angles,bins=36)" << endl;
+	cout << "	pylab.axes(polar=True);" << endl;
+	cout << "	pylab.bar(left=bins[:-1],height=[ math.log(v)  if v!=0 else 0 for v in values] ,width=2*numpy.pi/36);" << endl;
+	cout << "	pylab.title('Residue number '+str(resNumber))" << endl;
+	cout << "	pylab.savefig('polar_log_'+str(resNumber)+'.png')" << endl;
+	cout << "	pylab.clf()" << endl;
+ }
 
 void Analysis::printVector(vector<float> vec)
 {

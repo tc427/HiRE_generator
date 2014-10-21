@@ -52,8 +52,6 @@ float dihedral(Vector3d v1, Vector3d v2, Vector3d v3, Vector3d v4)
 	Vector3d V = v3-v2;
 	Vector3d W = v4-v3;
 
-	float signe;
-	
 	Vector3d vec1 = crossProduct(U, V);
 	Vector3d vec2 = crossProduct(V, W);
 
@@ -63,7 +61,7 @@ float dihedral(Vector3d v1, Vector3d v2, Vector3d v3, Vector3d v4)
 	}
 	else
 	{
-		return -angle(vec1, vec2);
+		return 360-angle(vec1, vec2);
 	}
 }
 
