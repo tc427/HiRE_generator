@@ -32,6 +32,30 @@ map<std::string, Chain>& Molecule::getChains()
 	return chains;
 }
 
+map<int, Atom> Molecule::getAtoms()
+{
+	map<int, Atom> mapToReturn;
+	
+	for (map<string, Chain>::iterator it=chains.begin(); it!=chains.end(); ++it)
+	{
+		map<int, Atom> mapTemp(it->second.getAtoms());
+		
+		for (map<int, Atom>::const_iterator it=mapTemp.begin(); it!=mapTemp.end(); ++it)
+		{
+			if(mapToReturn.count(it->first))
+			{
+				cout << "ERROR: Atom number " << it->first << " exist twice in molecule !!" << endl ;
+			}
+			else
+			{
+				mapToReturn[it->first] = it->second;
+			}
+		}
+	}
+	
+	return mapToReturn;
+}
+
 void Molecule::printMolecule(ostream& out) const
 {
 	out << "\n\n<molecule chainsCount=" << chains.size() << "   ";

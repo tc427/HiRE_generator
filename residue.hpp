@@ -14,6 +14,7 @@ class Residue
 	
 		void addAtom(Atom atom);
 		Atom& getAtom(std::string atomName);
+		std::map<int, Atom> getAtoms(); 
 		bool hasAtom(std::string atomName);
 	
 		int getNumber();

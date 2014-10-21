@@ -34,9 +34,33 @@ string Chain::getIdentifer()
 	return identifer;
 }
 
-std::map<int, Residue>& Chain::getResidues()
+map<int, Residue>& Chain::getResidues()
 {
 	return residues;
+}
+
+map<int, Atom> Chain::getAtoms() 
+{
+	map<int, Atom> mapToReturn;
+	
+	for (map<int, Residue>::iterator it=residues.begin(); it!=residues.end(); ++it)
+	{
+		map<int, Atom> mapTemp = it->second.getAtoms();
+		
+		for (map<int, Atom>::const_iterator it=mapTemp.begin(); it!=mapTemp.end(); ++it)
+		{ 
+			if(mapToReturn.count(it->first))
+			{
+				cout << "ERROR: Atom number " << it->first << " exist twice in molecule !!" << endl ;
+			}
+			else
+			{
+				mapToReturn[it->first] = it->second;
+			}
+		}
+	}
+	
+	return mapToReturn;
 }
 
 void Chain::printChain(ostream& out) const

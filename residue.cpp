@@ -37,6 +37,17 @@ string Residue::getType()
 	return type;
 }
 
+map<int, Atom> Residue::getAtoms()
+{ 
+	map<int, Atom> mapToReturn;
+	
+	for (map<string, Atom>::const_iterator it=atoms.begin(); it!=atoms.end(); ++it) {
+		Atom atom = it->second;
+		mapToReturn[atom.getNumber()] = atom;
+	}
+	
+	return mapToReturn;
+}
 
 void Residue::printResidue(ostream& out) const
 {

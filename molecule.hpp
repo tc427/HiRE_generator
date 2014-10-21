@@ -18,6 +18,7 @@ class Molecule
 		void addChain(Chain chain);
 		int countChains();
 		std::map<std::string, Chain>& getChains();
+		std::map<int, Atom> getAtoms();
 		
 		void printMolecule(std::ostream& out) const;
 		

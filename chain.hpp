@@ -16,6 +16,7 @@ class Chain
 		bool hasResidue(int residueNumber);
 		std::string getIdentifer();
 		std::map<int, Residue>& getResidues();
+		std::map<int, Atom> getAtoms();
 		void printChain(std::ostream& out) const;
 		
 	private:
