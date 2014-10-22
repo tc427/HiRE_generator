@@ -25,6 +25,7 @@ class Residue
 		
 		void printResidue(std::ostream& out) const;
 		void setParent(Chain *parent);
+		Chain *getParent();
 	
 	private:
 		std::map<std::string, Atom> atoms;

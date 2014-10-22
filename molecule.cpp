@@ -13,7 +13,8 @@ bool Molecule::hasChain(std::string chainIdentifer)
 }
 
 Chain& Molecule::getChain(std::string chainIdentifer)
-{
+{	
+	chains[chainIdentifer].setParent(this);
 	return chains[chainIdentifer];
 }
 

@@ -20,6 +20,7 @@ void Residue::addAtom(Atom atom)
 
 Atom& Residue::getAtom(string atomName)
 {
+	atoms[atomName].setParent(this);
 	return atoms[atomName];
 }
 
@@ -44,15 +45,21 @@ map<int, Atom> Residue::getAtoms()
 	
 	for (map<string, Atom>::const_iterator it=atoms.begin(); it!=atoms.end(); ++it) {
 		Atom atom = it->second;
+		atom.setParent(this);
 		mapToReturn[atom.getNumber()] = atom;
 	}
 	
 	return mapToReturn;
 }
 
-void Residue::setParent(Chain *parent)
+void Residue::setParent(Chain *par)
 {
-	parent = parent;
+	parent = par;
+}
+
+Chain *Residue::getParent()
+{
+	return parent;
 }
 
 void Residue::printResidue(ostream& out) const

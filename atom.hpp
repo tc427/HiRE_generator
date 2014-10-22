@@ -22,6 +22,7 @@ class Atom
 		void addCoordinates(Vector3d coordinates);
 		std::vector<Vector3d>& getCoordinates();
 		void setParent(Residue *parent);
+		Residue *getParent(); 
 	
 	private:
 		int number;

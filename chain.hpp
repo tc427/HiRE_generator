@@ -22,6 +22,7 @@ class Chain
 		std::map<int, Atom> getAtoms();
 		void printChain(std::ostream& out) const;
 		void setParent(Molecule *parent);
+		Molecule *getParent();
 		
 	private:
 		std::map<int, Residue> residues;

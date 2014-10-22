@@ -21,11 +21,12 @@ int main(int argc, char ** argv)
 	//trjconv -f min.xtc -o traj.pdb -s conf_initiale_RNA.pdb
 	
 	Molecule molecule = pdbParser::getMoleculeFromPdb(argv[1]);
-	Analysis analysis(molecule);
-	analysis.plotAntiSyn();
+	//Analysis analysis(molecule);
+	//analysis.plotAntiSyn();
 
-	//PdbWriter pdbWriter;
-	//pdbWriter.write("test.pdb", molecule);
+	//cout << molecule << endl;
+
+	PdbWriter::write("test.pdb", molecule);
 
 	return 0;
 }

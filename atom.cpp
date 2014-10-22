@@ -45,13 +45,18 @@ vector<Vector3d>& Atom::getCoordinates()
 	return coordinates;
 }
 
-void Atom::setParent(Residue *parent)
+void Atom::setParent(Residue *par)
 {
-	parent = parent;
+	parent = par;
+}
+
+Residue *Atom::getParent()
+{
+	return parent;
 }
 
 ostream &operator<<( ostream &out, Atom const& atom )
 {
-	out << "<atom number=" << atom.number << " name=" << atom.name << " type=" << atom.type << " numberOfFrames=" << atom.coordinates.size() << ">" ;
+	out << "<atom number=" << atom.number << " name=" << atom.name << " type=" << atom.type << " numberOfFrames=" << atom.coordinates.size() << " >" ;
     return out ;
 }

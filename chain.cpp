@@ -22,6 +22,7 @@ void Chain::addResidue(Residue residue)
 
 Residue& Chain::getResidue(int residueNumber)
 {
+	residues[residueNumber].setParent(this); //TODO: trouver une solution car moche !!!
 	return residues[residueNumber];
 }
 
@@ -40,9 +41,14 @@ map<int, Residue>& Chain::getResidues()
 	return residues;
 }
 
-void Chain::setParent(Molecule *parent)
+void Chain::setParent(Molecule *par)
 {
-	parent = parent;
+	parent = par;
+}
+
+Molecule *Chain::getParent()
+{
+	return parent;
 }
 
 map<int, Atom> Chain::getAtoms() 
