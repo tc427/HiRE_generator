@@ -3,6 +3,7 @@
 
 #include "molecule.hpp"
 #include "pdbParser.hpp"
+#include "pdbWriter.hpp"
 #include "xtcParser.hpp"
 #include "vector3d.hpp"
 #include "geometry.hpp"
@@ -23,7 +24,8 @@ int main(int argc, char ** argv)
 	Analysis analysis(molecule);
 	analysis.plotAntiSyn();
 
-	
+	//PdbWriter pdbWriter;
+	//pdbWriter.write("test.pdb", molecule);
 
 	return 0;
 }

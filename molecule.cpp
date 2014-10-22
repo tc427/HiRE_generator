@@ -19,6 +19,7 @@ Chain& Molecule::getChain(std::string chainIdentifer)
 
 void Molecule::addChain(Chain chain)
 {
+	chain.setParent( this );
 	chains[chain.getIdentifer()]=chain;
 }
 

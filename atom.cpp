@@ -4,16 +4,17 @@ using namespace std;
 
 Atom::Atom()
 {
-	
+	parent = 0;
 }
 
-Atom::Atom(int number, string name, string type) : number(number), name(name), type(type)
+Atom::Atom(int number, string name, string type) : parent(parent), number(number), name(name), type(type)
 {
-	
+	parent = 0;	
 }
 
-Atom::Atom(int number, string name, string type, Vector3d coordinates) : number(number), name(name), type(type)
+Atom::Atom(int number, string name, string type, Vector3d coordinates) : parent(parent), number(number), name(name), type(type)
 {
+	parent = 0;
 	addCoordinates(coordinates);
 }
 
@@ -44,6 +45,10 @@ vector<Vector3d>& Atom::getCoordinates()
 	return coordinates;
 }
 
+void Atom::setParent(Residue *parent)
+{
+	parent = parent;
+}
 
 ostream &operator<<( ostream &out, Atom const& atom )
 {

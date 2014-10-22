@@ -14,6 +14,7 @@ Residue::Residue()
 
 void Residue::addAtom(Atom atom)
 {
+	atom.setParent( this );
 	atoms[atom.getName()] = atom;
 }
 
@@ -47,6 +48,11 @@ map<int, Atom> Residue::getAtoms()
 	}
 	
 	return mapToReturn;
+}
+
+void Residue::setParent(Chain *parent)
+{
+	parent = parent;
 }
 
 void Residue::printResidue(ostream& out) const

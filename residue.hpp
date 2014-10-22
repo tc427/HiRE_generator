@@ -5,6 +5,9 @@
 
 #include "atom.hpp"
 
+class Atom;
+class Chain;
+
 class Residue
 {
 
@@ -21,11 +24,13 @@ class Residue
 		std::string getType();
 		
 		void printResidue(std::ostream& out) const;
+		void setParent(Chain *parent);
 	
 	private:
 		std::map<std::string, Atom> atoms;
 		int number;
 		std::string type;
+		Chain* parent;
 		
 	friend std::ostream& operator<< (std::ostream& flux, Residue const& residue);
 };

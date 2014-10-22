@@ -6,6 +6,9 @@
 #include "residue.hpp"
 #include "atom.hpp"
 
+class Residue;
+class Molecule;
+
 class Chain
 {
 	public:
@@ -18,10 +21,12 @@ class Chain
 		std::map<int, Residue>& getResidues();
 		std::map<int, Atom> getAtoms();
 		void printChain(std::ostream& out) const;
+		void setParent(Molecule *parent);
 		
 	private:
 		std::map<int, Residue> residues;
 		std::string identifer;
+		Molecule* parent;
 		
 	friend std::ostream& operator<< (std::ostream& flux, Chain const& chain);
 };

@@ -16,6 +16,7 @@ Chain::Chain(string identifer) : identifer(identifer)
 
 void Chain::addResidue(Residue residue)
 {
+	residue.setParent( this );
 	residues[residue.getNumber()] = residue;
 }
 
@@ -37,6 +38,11 @@ string Chain::getIdentifer()
 map<int, Residue>& Chain::getResidues()
 {
 	return residues;
+}
+
+void Chain::setParent(Molecule *parent)
+{
+	parent = parent;
 }
 
 map<int, Atom> Chain::getAtoms() 
