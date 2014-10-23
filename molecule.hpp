@@ -21,6 +21,7 @@ class Molecule
 		std::map<int, Atom> getAtoms();
 		
 		void printMolecule(std::ostream& out) const;
+		void checkAtomsNumbers();
 		
 	private:
 		std::map<std::string, Chain> chains;

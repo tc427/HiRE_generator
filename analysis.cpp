@@ -46,11 +46,33 @@ void Analysis::plotAntiSyn()
 	}
 	cout << "}" << endl << endl;
 		
+	pythonPlotDic();
+ }
+
+void Analysis::printVector(vector<float> vec)
+{
+	bool first(true);
+	
+	cout << "[" ;
+	
+	for(std::vector<float>::size_type i = 0; i != vec.size(); i++) {
+		if(first) {
+			first = false; 
+		} else {
+			cout << "," ;}
+		cout << vec[i] ;
+	}
+	
+	cout << "]" ;
+}
+
+void Analysis::pythonPlotDic()
+{
 	cout << "from matplotlib.lines import Line2D" << endl;
 	cout << "import pylab # the matlab-like interface of matplotlib import numpy" << endl;
 	cout << "import numpy" << endl << endl;
 	cout << "import math" << endl << endl;
-	
+
 	cout << "for resNumber in dic:" << endl;
 	cout << "	angles = dic[resNumber]" << endl;
 	cout << "	values,bins=numpy.histogram(angles,bins=36)" << endl;
@@ -85,21 +107,4 @@ void Analysis::plotAntiSyn()
 	cout << "	pylab.title('Residue number '+str(resNumber))" << endl;
 	cout << "	pylab.savefig('polar_log_'+str(resNumber)+'.png')" << endl;
 	cout << "	pylab.clf()" << endl;
- }
-
-void Analysis::printVector(vector<float> vec)
-{
-	bool first(true);
-	
-	cout << "[" ;
-	
-	for(std::vector<float>::size_type i = 0; i != vec.size(); i++) {
-		if(first) {
-			first = false; 
-		} else {
-			cout << "," ;}
-		cout << vec[i] ;
-	}
-	
-	cout << "]" ;
 }

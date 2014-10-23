@@ -58,6 +58,17 @@ map<int, Atom> Molecule::getAtoms()
 	return mapToReturn;
 }
 
+void Molecule::checkAtomsNumbers()
+{
+	int atomNumber = 0;
+
+	for (map<string, Chain>::iterator it=chains.begin(); it!=chains.end(); ++it )
+	{
+		atomNumber = it->second.checkAtomsNumbers(atomNumber);
+	}
+
+}
+
 void Molecule::printMolecule(ostream& out) const
 {
 	out << "\n\n<molecule chainsCount=" << chains.size() << "   ";

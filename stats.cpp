@@ -20,7 +20,7 @@ float sum(vector<float> list)
 	return total;
 }
 
-float variance(vector<float> list) 
+float variance(vector<float> list)
 {
 	float s(0);
 	

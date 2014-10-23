@@ -4,12 +4,13 @@ using namespace std;
 
 Residue::Residue(int number, string type) : number(number), type(type)
 {
-	
+	parent = 0;
 }
 
 Residue::Residue()
 {
-
+	number = 0;
+	parent = 0;
 }
 
 void Residue::addAtom(Atom atom)
@@ -20,8 +21,15 @@ void Residue::addAtom(Atom atom)
 
 Atom& Residue::getAtom(string atomName)
 {
-	atoms[atomName].setParent(this);
+	if(hasAtom(atomName)) {
+		atoms[atomName].setParent(this);}
+
 	return atoms[atomName];
+}
+
+void Residue::removeAtom(string atomName)
+{
+	atoms.erase(atomName);
 }
 
 bool Residue::hasAtom(string atomName)
@@ -29,12 +37,12 @@ bool Residue::hasAtom(string atomName)
 	return atoms.count(atomName);
 }
 
-int Residue::getNumber()
+int Residue::getNumber() const
 {
 	return number;
 }
 
-string Residue::getType()
+string Residue::getType() const
 {
 	return type;
 }
@@ -45,7 +53,7 @@ map<int, Atom> Residue::getAtoms()
 	
 	for (map<string, Atom>::const_iterator it=atoms.begin(); it!=atoms.end(); ++it) {
 		Atom atom = it->second;
-		atom.setParent(this);
+		//atom.setParent(this);
 		mapToReturn[atom.getNumber()] = atom;
 	}
 	
@@ -60,6 +68,15 @@ void Residue::setParent(Chain *par)
 Chain *Residue::getParent()
 {
 	return parent;
+}
+
+int Residue::checkAtomsNumbers(int atomNumber)
+{
+	for (map<string, Atom>::iterator it=atoms.begin(); it!=atoms.end(); ++it )
+	{
+		it->second.setNumber(atomNumber++);
+	}
+	return atomNumber;
 }
 
 void Residue::printResidue(ostream& out) const

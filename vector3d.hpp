@@ -7,11 +7,11 @@ class Vector3d
 	public:
 		Vector3d();
 		Vector3d(float x, float y, float z);
-		float getX();
+		float getX() const;
 		void setX(float x);
-		float getY();
+		float getY() const;
 		void setY(float y);
-		float getZ();
+		float getZ() const;
 		void setZ(float z);
 		
 		Vector3d& operator+=(const Vector3d&);

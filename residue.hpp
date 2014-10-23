@@ -17,16 +17,19 @@ class Residue
 	
 		void addAtom(Atom atom);
 		Atom& getAtom(std::string atomName);
+		void removeAtom(std::string atomName);
 		std::map<int, Atom> getAtoms(); 
 		bool hasAtom(std::string atomName);
 	
-		int getNumber();
-		std::string getType();
+		int getNumber() const;
+		std::string getType() const;
 		
 		void printResidue(std::ostream& out) const;
 		void setParent(Chain *parent);
 		Chain *getParent();
-	
+
+		int checkAtomsNumbers(int atomNumber);
+
 	private:
 		std::map<std::string, Atom> atoms;
 		int number;

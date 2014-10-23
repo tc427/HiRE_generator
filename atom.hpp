@@ -16,13 +16,16 @@ class Atom
 		Atom();
 		Atom(int number, std::string name, std::string type);
 		Atom(int number, std::string name, std::string type, Vector3d coordinates);
-		int getNumber();
-		std::string getType();
-		std::string getName();
+		int getNumber() const;
+		void setNumber(int n);
+		std::string getType() const;
+		void setType(std::string t);
+		std::string getName() const;
+		void setName(std::string n);
 		void addCoordinates(Vector3d coordinates);
 		std::vector<Vector3d>& getCoordinates();
 		void setParent(Residue *parent);
-		Residue *getParent(); 
+		Residue *getParent();
 	
 	private:
 		int number;

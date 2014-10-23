@@ -16,6 +16,7 @@ class Analysis
 	 private:
 		Molecule moleculeToAnalyse;
 		void printVector(std::vector<float> vec);
+		void pythonPlotDic();
 	 
 };
  

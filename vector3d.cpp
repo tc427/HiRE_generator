@@ -12,34 +12,34 @@ Vector3d::Vector3d(float x, float y, float z) : x(x), y(y), z(z)
 
 }
 
-float Vector3d::getX()
+float Vector3d::getX() const
 {
 	return x;
 }
 
-void Vector3d::setX(float x)
+void Vector3d::setX(float _x)
 {
-	x = x;
+	x = _x;
 }
 
-float Vector3d::getY()
+float Vector3d::getY() const
 {
 	return y;
 }
 
-void Vector3d::setY(float y)
+void Vector3d::setY(float _y)
 {
-	y = y;
+	y = _y;
 }
 
-float Vector3d::getZ()
+float Vector3d::getZ() const
 {
 	return z;
 }
 
-void Vector3d::setZ(float z)
+void Vector3d::setZ(float _z)
 {
-	z = z;
+	z = _z;
 }
 
 ostream &operator<<( ostream &out, Vector3d const& vector )

@@ -68,7 +68,7 @@ float dihedral(Vector3d v1, Vector3d v2, Vector3d v3, Vector3d v4)
 vector<float> dihedrals(Atom atom1, Atom atom2, Atom atom3, Atom atom4)
 {
 	vector<float> dihedralsList;
-	for(std::vector<Vector3d>::size_type i = 0; i != atom1.getCoordinates().size(); i++)
+	for(std::vector<Vector3d>::size_type i = 0; i != 8000; i++)
 	{
 		dihedralsList.push_back( dihedral(atom1.getCoordinates()[i], 
 										  atom2.getCoordinates()[i], 

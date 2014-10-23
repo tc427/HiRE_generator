@@ -18,22 +18,35 @@ Atom::Atom(int number, string name, string type, Vector3d coordinates) : parent(
 	addCoordinates(coordinates);
 }
 
-int Atom::getNumber()
+int Atom::getNumber() const
 {
 	return number;
 }
 
-string Atom::getType()
+void Atom::setNumber(int n)
+{
+	number = n;
+}
+
+string Atom::getType() const
 {
 	return type;
 }
 
+void Atom::setType(string t)
+{
+	type = t;
+}
 
-string Atom::getName()
+string Atom::getName() const
 {
 	return name;
 }
 
+void Atom::setName(string n)
+{
+	name = n;
+}
 
 void Atom::addCoordinates(Vector3d coord)
 {

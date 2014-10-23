@@ -31,7 +31,7 @@ bool Chain::hasResidue(int residueNumber)
 	return residues.count(residueNumber);
 }
 
-string Chain::getIdentifer()
+string Chain::getIdentifer() const
 {
 	return identifer;
 }
@@ -49,6 +49,15 @@ void Chain::setParent(Molecule *par)
 Molecule *Chain::getParent()
 {
 	return parent;
+}
+
+int Chain::checkAtomsNumbers(int atomNumber)
+{
+	for (map<int, Residue>::iterator it=residues.begin(); it!=residues.end(); ++it )
+	{
+		atomNumber = it->second.checkAtomsNumbers(atomNumber);
+	}
+	return atomNumber;
 }
 
 map<int, Atom> Chain::getAtoms() 
