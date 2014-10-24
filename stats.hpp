@@ -1,5 +1,5 @@
 #include "vector3d.hpp"
-#include "atom.hpp"
+#include "entities/atom.hpp"
 
 #include <vector> 
 #include <math.h> 

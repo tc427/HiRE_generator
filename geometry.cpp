@@ -4,6 +4,23 @@
 
 using namespace std;
 
+vector<float> distances(Atom atom1, Atom atom2)
+{
+	vector<float> vecToReturn;
+	for(vector<Vector3d>::size_type i = 0; i != atom1.getCoordinates().size(); i++)
+	{
+		vecToReturn.push_back( dist(atom1.getCoordinates()[i],
+										atom2.getCoordinates()[i]) );
+	}
+
+	return vecToReturn;
+}
+
+float dist(Vector3d v1, Vector3d v2)
+{
+	return norm(v2-v1);
+}
+
 float norm(Vector3d v)
 {
 	return sqrt( pow(v.getX(),2) + pow(v.getY(),2) + pow(v.getZ(),2) );
@@ -26,11 +43,6 @@ float angle(Vector3d v1, Vector3d v2)
 	{
 		return acos( d ) * 180.0 / PI;
 	}
-}
-
-float determinant(Vector3d v1, Vector3d v2)
-{
-	
 }
 
 float dotProduct(Vector3d v1, Vector3d v2)//Produit scalaire
@@ -68,7 +80,7 @@ float dihedral(Vector3d v1, Vector3d v2, Vector3d v3, Vector3d v4)
 vector<float> dihedrals(Atom atom1, Atom atom2, Atom atom3, Atom atom4)
 {
 	vector<float> dihedralsList;
-	for(std::vector<Vector3d>::size_type i = 0; i != 8000; i++)
+	for(vector<Vector3d>::size_type i = 0; i != atom1.getCoordinates().size(); i++)
 	{
 		dihedralsList.push_back( dihedral(atom1.getCoordinates()[i], 
 										  atom2.getCoordinates()[i], 

@@ -83,8 +83,8 @@ Molecule pdbParser::parsePdb(ifstream& pdbFile)
 			if(!molecule.getChain(sChain).getResidue(residueNumber).hasAtom(atomName))
 			{
 				string sAtomNumber = line.substr(6,5);
-				//string atomType = line.substr(76,2);
-				string atomType = "X";
+				string atomType = line.substr(76,2);
+				//string atomType = "X";
 				
 				trim(atomType);
 				trim(sAtomNumber);

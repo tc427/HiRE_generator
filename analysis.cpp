@@ -2,71 +2,137 @@
 
 using namespace std ;
 
-Analysis::Analysis()
+template< typename Type >
+void printVector( vector< Type > vec, bool first=true)
 {
-	
-}
+	bool firstElement(true);
 
-Analysis::Analysis(Molecule mol) : moleculeToAnalyse(mol)
-{
-	
-}
-
-void Analysis::plotAntiSyn()
-{
-	cout << "dic = {" << endl;
-	
-	bool first(true);
-		
-	for (map<string, Chain>::const_iterator it=moleculeToAnalyse.getChains().begin(); it!=moleculeToAnalyse.getChains().end(); ++it) {
-		Chain chain = it->second;
-		for (map<int, Residue>::const_iterator it2=chain.getResidues().begin(); it2!=chain.getResidues().end(); ++it2) {
-			Residue residue = it2->second;
-			string resType = residue.getType();
-			if(resType == "A" or resType == "G")
-			{
-				if(residue.hasAtom("CA") and
-				   residue.hasAtom("CY") and
-				   residue.hasAtom(resType + "1") and
-				   residue.hasAtom(resType + "2") )
-				{
-						
-					if(first) {
-						first = false;
-					} else {
-						cout << "," << endl; }
-					cout << residue.getNumber() << " : " ;
-					printVector(dihedrals( residue.getAtom("CA"),
-										   residue.getAtom("CY"), 
-										   residue.getAtom(resType + "1"), 
-										   residue.getAtom(resType + "2") ));			
-				}
-			}
-		}
-	}
-	cout << "}" << endl << endl;
-		
-	pythonPlotDic();
- }
-
-void Analysis::printVector(vector<float> vec)
-{
-	bool first(true);
-	
+	if(first) {
+		cout << "dic = "; }
 	cout << "[" ;
-	
-	for(std::vector<float>::size_type i = 0; i != vec.size(); i++) {
-		if(first) {
-			first = false; 
+
+	for(typename std::vector< Type >::size_type i = 0; i != vec.size(); i++) {
+		if(firstElement) {
+			firstElement = false;
 		} else {
 			cout << "," ;}
 		cout << vec[i] ;
 	}
-	
+
 	cout << "]" ;
 }
 
-void Analysis::pythonPlotDic()
+
+template<typename Type>
+void printVector(vector< vector< Type > > vec, bool first=true)
+{
+	bool firstElement(true);
+
+	if(first) {
+		cout << "dic = "; }
+	cout << "[" ;
+
+	for(typename vector< vector<Type> >::size_type i = 0; i != vec.size(); i++) {
+		if(firstElement) {
+			firstElement = false;
+		} else {
+			cout << "," ;}
+		printVector(vec[i], false) ;
+	}
+
+	cout << "]" ;
+}
+
+template<typename Type1, typename Type2>
+void printVector(map< Type1 , Type2 > vec, bool first=true)
+{
+	bool firstElement = true;
+
+	if(first) {
+		cout << "dic = "; }
+	cout << "{";
+	for (typename map< Type1 , Type2 >::iterator it=vec.begin(); it!=vec.end(); ++it)
+	{
+		if(firstElement) {
+			firstElement = false;
+		} else {
+			cout << ","; }
+		cout << it->first  << " : ";
+		printVector(it->second, false);
+	}
+	cout << "}" << endl ;
+}
+
+Analysis::Analysis()
+{
+	lastAtom["A"] = "A2";
+	lastAtom["C"] = "C1";
+	lastAtom["T"] = "T1";
+	lastAtom["G"] = "G2";
+	lastAtom["U"] = "U1";
+}
+
+Analysis::Analysis(Molecule mol) : moleculeToAnalyse(mol)
+{
+	lastAtom["A"] = "A2";
+	lastAtom["C"] = "C1";
+	lastAtom["T"] = "T1";
+	lastAtom["G"] = "G2";
+	lastAtom["U"] = "U1";
+}
+
+void Analysis::plotAntiSyn()
+{
+	map<int, vector<float> > results;
+	vector<Residue> residues = moleculeToAnalyse.getResidues();
+
+	for (vector<Residue>::iterator residue=residues.begin(); residue!=residues.end(); ++residue) {
+		string resType = residue->getType();
+		if(resType == "A" or resType == "G")
+		{
+			if(residue->hasAtom("CA") and
+			   residue->hasAtom("CY") and
+			   residue->hasAtom(resType + "1") and
+			   residue->hasAtom(resType + "2") )
+			{
+
+				results[residue->getNumber()] = dihedrals( residue->getAtom("CA"),
+													   	  residue->getAtom("CY"),
+														  residue->getAtom(resType + "1"),
+													      residue->getAtom(resType + "2") );
+			}
+		}
+	}
+
+	printVector(results);
+	pythonPlotAntiSyn();
+ }
+
+void Analysis::plotBasesEcarts()
+{
+	map<int, map<int, vector<float> > > result;
+	vector<Residue> residues = moleculeToAnalyse.getResidues();
+	for (vector<Residue>::iterator itResidue1=residues.begin(); itResidue1!=residues.end(); ++itResidue1 )
+	{
+		int nResidue1 = itResidue1->getNumber();
+		result[nResidue1] = map<int, vector<float> >();
+		for (vector<Residue>::iterator itResidue2=residues.begin(); itResidue2!=residues.end(); ++itResidue2 )
+		{
+			int nResidue2 = itResidue2->getNumber();
+			if(nResidue1 != nResidue2)
+			{
+				if(itResidue1->hasAtom(lastAtom[itResidue1->getType()]) and itResidue2->hasAtom(lastAtom[itResidue2->getType()]))
+				{
+					result[nResidue1][nResidue2] = distances(itResidue1->getAtom(lastAtom[itResidue1->getType()]),
+															 itResidue2->getAtom(lastAtom[itResidue2->getType()]));
+				}
+			}
+		}
+	}
+	printVector(result);
+}
+
+void Analysis::pythonPlotAntiSyn()
 {
 	cout << "from matplotlib.lines import Line2D" << endl;
 	cout << "import pylab # the matlab-like interface of matplotlib import numpy" << endl;

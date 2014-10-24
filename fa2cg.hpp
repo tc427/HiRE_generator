@@ -1,7 +1,7 @@
-#include "molecule.hpp"
-#include "chain.hpp"
-#include "atom.hpp"
-#include "residue.hpp"
+#include "entities/molecule.hpp"
+#include "entities/chain.hpp"
+#include "entities/atom.hpp"
+#include "entities/residue.hpp"
 #include "vector3d.hpp"
 #include "param/fa2cgParam.hpp"
 

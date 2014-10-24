@@ -9,20 +9,15 @@ Fa2cg::Fa2cg()
 
 void Fa2cg::fa2cg(Molecule &molecule)
 {
-
-	map<string, Chain> chains = molecule.getChains();
-	for (map<string, Chain>::iterator itChain=chains.begin(); itChain!=chains.end(); ++itChain)
+	vector<Residue> residues = molecule.getResidues();
+	for (vector<Residue>::iterator iTresidue=residues.begin(); iTresidue!=residues.end(); ++iTresidue)
 	{
-		Chain& chain = molecule.getChain(itChain->first);
-		map<int, Residue> residues = chain.getResidues();
-		for (map<int, Residue>::iterator itRes=residues.begin(); itRes!=residues.end(); ++itRes)
-		{
-			Residue &residue = chain.getResidue(itRes->first);
-			normaliseResidue(residue);
-			transformResidue(residue);
-		}
-		molecule.checkAtomsNumbers();
+		Residue residue = molecule.getChain(iTresidue->getParent()->getName())
+								  .getResidue(iTresidue->getNumber());
+		normaliseResidue(residue);
+		transformResidue(residue);
 	}
+	molecule.checkAtomsNumbers();
 }
 
 void Fa2cg::transformResidue(Residue &residue)
@@ -64,13 +59,12 @@ void Fa2cg::transformResidue(Residue &residue)
 	}
 
 	// remove useless atoms
-	map<int, Atom> listAtoms = residue.getAtoms();
-	for (map<int, Atom>::iterator it=listAtoms.begin(); it!=listAtoms.end(); ++it)
+	vector<Atom> listAtoms = residue.getAtoms();
+	for (vector<Atom>::iterator itAtom=listAtoms.begin(); itAtom!=listAtoms.end(); ++itAtom)
 	{
-		Atom atom = it->second;
-		if(find(listToKeep.begin(), listToKeep.end(), atom.getName())==listToKeep.end())
+		if(find(listToKeep.begin(), listToKeep.end(), itAtom->getName())==listToKeep.end())
 		{
-			residue.removeAtom(atom.getName());
+			residue.removeAtom(itAtom->getName());
 		}
 	}
 
