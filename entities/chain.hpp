@@ -31,6 +31,7 @@ class Chain : public Entity
 
 		int checkAtomsNumbers(int atomNumber);
 		std::string getSequence();
+		void checkType();
 		void printChain(std::ostream& out) const;
 
 	private:

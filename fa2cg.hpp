@@ -2,7 +2,7 @@
 #include "entities/chain.hpp"
 #include "entities/atom.hpp"
 #include "entities/residue.hpp"
-#include "vector3d.hpp"
+#include "geometry/vector3d.hpp"
 #include "param/fa2cgParam.hpp"
 
 #include <map>

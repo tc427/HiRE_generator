@@ -9,11 +9,11 @@
 #include <fstream>
 #include <stdlib.h>
 
-#include "entities/atom.hpp"
-#include "entities/residue.hpp"
-#include "entities/chain.hpp"
-#include "entities/molecule.hpp"
-#include "vector3d.hpp"
+#include "../entities/atom.hpp"
+#include "../entities/residue.hpp"
+#include "../entities/chain.hpp"
+#include "../entities/molecule.hpp"
+#include "../geometry/vector3d.hpp"
 
 class PdbWriter
 {

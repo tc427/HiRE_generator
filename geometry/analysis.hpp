@@ -1,4 +1,4 @@
-#include "entities/molecule.hpp"
+#include "../entities/molecule.hpp"
 #include "geometry.hpp"
 
 #include <string>

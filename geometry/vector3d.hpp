@@ -2,25 +2,18 @@
 
 #include <iostream>
 
-class Vector3d
+#include "vo3d.hpp"
+
+class Vector3d : public Vo3d
 {
 	public:
 		Vector3d();
 		Vector3d(float x, float y, float z);
-		float getX() const;
-		void setX(float x);
-		float getY() const;
-		void setY(float y);
-		float getZ() const;
-		void setZ(float z);
 		
 		Vector3d& operator+=(const Vector3d&);
 		Vector3d& operator-=(const Vector3d&);
 
 	private:
-		float x;
-		float y;
-		float z;
 		
 	friend std::ostream& operator<< (std::ostream& flux, Vector3d const& vector);
 };

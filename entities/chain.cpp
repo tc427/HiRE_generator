@@ -111,6 +111,25 @@ string Chain::getSequence()
 	return sequence;
 }
 
+void Chain::checkType()
+{
+	string sequence = getSequence();
+	size_t nU = std::count(sequence.begin(), sequence.end(), 'U');
+	size_t nC = std::count(sequence.begin(), sequence.end(), 'C');
+	size_t nT = std::count(sequence.begin(), sequence.end(), 'T');
+	size_t nA = std::count(sequence.begin(), sequence.end(), 'A');
+	size_t nG = std::count(sequence.begin(), sequence.end(), 'G');
+
+	if(sequence.size() == nA+nC+nT+nG) {
+		m_type = "DNA";
+	} else if(sequence.size() == nA+nC+nU+nG) {
+		m_type = "RNA";
+	} else {
+		m_type = "UNDEFINED";
+		cout << "ERROR: Cannot determine chain type for sequence :" << endl;
+		cout << sequence << endl << this << endl;
+	}
+}
 
 ostream &operator<<( ostream &out, Chain const& chain )
 {

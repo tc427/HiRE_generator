@@ -2,13 +2,13 @@
 #include <vector>
 
 #include "entities/molecule.hpp"
-#include "pdbParser.hpp"
-#include "pdbWriter.hpp"
-#include "xtcParser.hpp"
-#include "vector3d.hpp"
-#include "geometry.hpp"
-#include "stats.hpp"
-#include "analysis.hpp"
+#include "inout/pdbParser.hpp"
+#include "inout/pdbWriter.hpp"
+#include "inout/xtcParser.hpp"
+#include "geometry/vector3d.hpp"
+#include "geometry/geometry.hpp"
+#include "mathematics/stats.hpp"
+#include "geometry/analysis.hpp"
 #include "fa2cg.hpp"
 #include "param/fa2cgParam.hpp"
 

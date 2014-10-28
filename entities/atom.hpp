@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-#include "../vector3d.hpp"
+#include "../geometry/vector3d.hpp"
 #include "residue.hpp"
 #include "entity.h"
 
