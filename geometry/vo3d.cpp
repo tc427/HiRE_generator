@@ -42,8 +42,8 @@ void Vo3d::setZ(float _z)
 	z = _z;
 }
 
-ostream &operator<<( ostream &out, Vo3d const& vector )
+ostream &operator<<( ostream &out, Vo3d const& vo3d )
 {
-	out << "< x=" << vector.x << " y=" << vector.y << " z=" << vector.z << " >" ;
+	out << "< x=" << vo3d.getX() << " y=" << vo3d.getY() << " z=" << vo3d.getZ() << " >" ;
     return out ;
 }

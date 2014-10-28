@@ -14,12 +14,12 @@ Point::~Point() {
 	// TODO Auto-generated destructor stub
 }
 
-Point& Point::operator-=(const Point& other)
+Vector3d Point::operator-=(const Point& other)
 {
-  return Vector3d(other.x - x, other.y - y, other.z, z);
+  return Vector3d(other.x - x, other.y - y, other.z- z);
 }
 
-Point operator-(Point first, const Point &other)
+Vector3d operator-(Point first, const Point &other)
 {
   return first-=other;
 }

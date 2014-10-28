@@ -14,10 +14,10 @@ class Vo3d
 		float getZ() const;
 		void setZ(float z);
 
-	private:
+	protected:
 		float x;
 		float y;
 		float z;
 
-	friend std::ostream& operator<< (std::ostream& flux, Vector3d const& vector);
+	friend std::ostream& operator<< (std::ostream& flux, Vo3d const& vo3d);
 };

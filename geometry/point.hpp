@@ -1,6 +1,7 @@
 #pragma once
 
 #include "vo3d.hpp"
+#include "vector3d.hpp"
 
 class Point : public Vo3d
 {
@@ -9,9 +10,9 @@ class Point : public Vo3d
 		Point(int x, int y, int z);
 		virtual ~Point();
 
-		Point& operator-=(const Point&);
+		Vector3d operator-=(const Point&);
 
 	private:
 };
 
-Point operator-(Point first, const Point &other);
+Vector3d operator-(Point first, const Point &other);
