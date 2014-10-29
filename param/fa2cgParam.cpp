@@ -27,10 +27,10 @@ void Fa2cgParam::initialise()
 
 	fa2cg = map< string, string >();
 	fa2cg["P"]   = "P";
-	fa2cg["O5*"] = "O5";
-	fa2cg["C5*"] = "C5'";
-	fa2cg["CA"]  = "C4'";
-	fa2cg["C1*"]  = "CY";
+	fa2cg["O5'"] = "O5*";
+	fa2cg["C5'"] = "C5*";
+	fa2cg["C4'"]  = "CA";
+	fa2cg["C1'"]  = "CY";
 
 	vector<string> A1;
 	vector<string> A2;
@@ -86,7 +86,7 @@ void Fa2cgParam::initialise()
 	U1.push_back("C6");
 	U1.push_back("O2");
 	U1.push_back("O4");
-	U1.push_back("O");
+	//U1.push_back("O");
 
 	T1.push_back("N1");
 	T1.push_back("N3");

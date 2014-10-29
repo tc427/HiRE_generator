@@ -60,6 +60,7 @@ vector<Atom> Residue::getAtoms()
 	vector<Atom> vecToReturn;
 	for (map<string, Atom>::iterator it=m_atoms.begin(); it!=m_atoms.end(); ++it)
 	{
+		it->second.setParent(this);
 		vecToReturn.push_back(it->second);
 	}
 
@@ -78,12 +79,11 @@ void Residue::setParent(Chain *parent)
 
 int Residue::checkAtomsNumbers(int atomNumber)
 {
-/*	for (map<string, Atom>::iterator it=atoms.begin(); it!=atoms.end(); ++it )
+	for (map<string, Atom>::iterator it=m_atoms.begin(); it!=m_atoms.end(); ++it )
 	{
 		it->second.setNumber(atomNumber++);
 	}
-	return atomNumber;*/
-	return 0;
+	return atomNumber;
 }
 
 void Residue::printResidue(ostream& out) const

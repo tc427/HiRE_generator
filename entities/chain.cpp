@@ -23,7 +23,7 @@ Chain::~Chain()
 
 bool Chain::hasResidue(int number)
 {
-	return m_residues.count(number);
+	return m_residues.count(number)!=0;
 }
 
 Residue& Chain::getResidue(int number)
@@ -62,6 +62,7 @@ vector<Residue> Chain::getResidues()
 	vector<Residue> vecToReturn;
 	for (map<int, Residue>::iterator it=m_residues.begin(); it!=m_residues.end(); ++it)
 	{
+		it->second.setParent(this);
 		vecToReturn.push_back(it->second);
 	}
 
@@ -136,6 +137,15 @@ void Chain::checkType()
 		cout << "ERROR: Cannot determine chain type for sequence :" << endl;
 		cout << sequence << endl << this << endl;
 	}
+}
+
+int Chain::checkAtomsNumbers(int atomNumber)
+{
+	for (map<int, Residue>::iterator it=m_residues.begin(); it!=m_residues.end(); ++it )
+	{
+		atomNumber = it->second.checkAtomsNumbers(atomNumber);
+	}
+	return atomNumber;
 }
 
 int Chain::getNChains()

@@ -53,7 +53,7 @@ int Atom::getNAtoms()
 ostream &operator<< ( ostream &out, Atom const& atom )
 {
 	out << "<atom number=" << atom.m_number;
-	out << " name=" << atom.m_number;
+	out << " name=" << atom.m_name;
 	out << " type=" << atom.m_type;
 	out << " numberOfFrames=" << atom.m_childs.size() << " >" ;
     return out ;

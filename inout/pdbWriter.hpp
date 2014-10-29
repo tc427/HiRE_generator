@@ -4,6 +4,8 @@
 #include <boost/lexical_cast.hpp> // for string to int conversion
 
 #include <iostream>
+#include <limits>
+#include <iomanip>
 #include <vector>
 #include <string>
 #include <fstream>

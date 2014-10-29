@@ -53,6 +53,7 @@ vector<Chain> Molecule::getChains()
 	vector<Chain> vecToReturn;
 	for (map<string, Chain>::iterator it=m_chains.begin(); it!=m_chains.end(); ++it)
 	{
+		it->second.setParent(this);
 		vecToReturn.push_back(it->second);
 	}
 	return vecToReturn;
@@ -82,13 +83,12 @@ vector<Atom> Molecule::getAtoms()
 
 void Molecule::checkAtomsNumbers()
 {
-/*	int atomNumber = 0;
+	int atomNumber = 0;
 
-	for (map<string, Chain>::iterator it=chains.begin(); it!=chains.end(); ++it )
+	for (map<string, Chain>::iterator it=m_chains.begin(); it!=m_chains.end(); ++it )
 	{
 		atomNumber = it->second.checkAtomsNumbers(atomNumber);
-	}*/
-
+	}
 }
 
 void Molecule::printMolecule(ostream& out) const

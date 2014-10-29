@@ -12,8 +12,9 @@ void Fa2cg::fa2cg(Molecule &molecule)
 	vector<Residue> residues = molecule.getResidues();
 	for (vector<Residue>::iterator iTresidue=residues.begin(); iTresidue!=residues.end(); ++iTresidue)
 	{
-		Residue residue = molecule.getChain(iTresidue->getParent()->getName())
-								  .getResidue(iTresidue->getNumber());
+		Chain& chain = molecule.getChain(iTresidue->getParent()->getName());
+		Residue& residue = molecule.getChain(iTresidue->getParent()->getName())
+								   .getResidue(iTresidue->getNumber());
 		normaliseResidue(residue);
 		transformResidue(residue);
 	}
@@ -78,8 +79,8 @@ void Fa2cg::normaliseResidue(Residue &residue)
 		if(residue.hasAtom(it->first))
 		{
  			residue.getAtom(it->first).setName(it->second);
- 			residue.addAtom(residue.getAtom(it->first));
- 			residue.removeAtom(it->first);
+ 			//residue.addAtom(residue.getAtom(it->first));
+ 			//residue.removeAtom(it->first);
 		}
 	}
 }
