@@ -4,14 +4,21 @@
 
 using namespace std;
 
+int Chain::nChains = 0;
+
 Chain::Chain() : Entity(), m_parent(0)
 {
-
+	nChains++;
 }
 
 Chain::Chain(string name) : Entity(0, "", name), m_parent(0)
 {
+	nChains++;
+}
 
+Chain::~Chain()
+{
+	nChains--;
 }
 
 bool Chain::hasResidue(int number)
@@ -129,6 +136,11 @@ void Chain::checkType()
 		cout << "ERROR: Cannot determine chain type for sequence :" << endl;
 		cout << sequence << endl << this << endl;
 	}
+}
+
+int Chain::getNChains()
+{
+	return nChains;
 }
 
 ostream &operator<<( ostream &out, Chain const& chain )

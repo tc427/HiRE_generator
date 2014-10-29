@@ -14,6 +14,7 @@ class Molecule : public Entity
 
 	public:
 		Molecule();
+		~Molecule();
 		
 		void printMolecule(std::ostream& out) const;
 		void checkAtomsNumbers();

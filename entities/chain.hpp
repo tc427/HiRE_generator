@@ -17,6 +17,7 @@ class Chain : public Entity
 	public:
 		Chain();
 		Chain(std::string name);
+		~Chain();
 
 		bool hasResidue(int number);
 		Residue& getResidue(int number);
@@ -34,9 +35,13 @@ class Chain : public Entity
 		void checkType();
 		void printChain(std::ostream& out) const;
 
+		static int getNChains();
+
 	private:
 		std::map<int, Residue> m_residues;
 		Molecule *m_parent;
+
+		static int nChains;
 		
 
 	friend std::ostream& operator<< (std::ostream& flux, Chain const& chain);

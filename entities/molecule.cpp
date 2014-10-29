@@ -7,6 +7,11 @@ Molecule::Molecule() : Entity()
 	
 }
 
+Molecule::~Molecule()
+{
+
+}
+
 bool Molecule::hasChain(std::string name)
 {
 	return m_chains.count(name);

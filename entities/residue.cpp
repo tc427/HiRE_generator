@@ -2,14 +2,21 @@
 
 using namespace std;
 
+int Residue::nResidues = 0;
+
 Residue::Residue(int number, string type) : Entity(number, type, ""), m_parent(0)
 {
-
+	nResidues++;
 }
 
 Residue::Residue() : Entity(), m_parent(0)
 {
+	nResidues++;
+}
 
+Residue::~Residue()
+{
+	nResidues--;
 }
 
 bool Residue::hasAtom(std::string name)
@@ -87,6 +94,11 @@ void Residue::printResidue(ostream& out) const
 	}
 
 	out << ">" ;
+}
+
+int Residue::getNResidues()
+{
+	return nResidues;
 }
 
 ostream &operator<<( ostream &out, Residue const& residue )

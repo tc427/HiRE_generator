@@ -15,6 +15,7 @@ class Residue : public Entity
 	public:
 		Residue();
 		Residue(int number, std::string type);
+		virtual ~Residue();
 
 		bool hasAtom(std::string name);
 		Atom& getAtom(std::string name);
@@ -29,9 +30,13 @@ class Residue : public Entity
 		void printResidue(std::ostream& out) const;
 		int checkAtomsNumbers(int atomNumber);
 
+		static int getNResidues();
+
 	private:
 		std::map<std::string, Atom> m_atoms;
 		Chain *m_parent;
+
+		static int nResidues;
 
 	friend std::ostream& operator<< (std::ostream& flux, Residue const& residue);
 };
