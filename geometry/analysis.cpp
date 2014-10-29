@@ -110,26 +110,54 @@ void Analysis::plotAntiSyn()
 
 void Analysis::plotBasesEcarts()
 {
-	map<int, map<int, vector<float> > > result;
+	map<int, vector<int> > result;
 	vector<Residue> residues = moleculeToAnalyse.getResidues();
+
 	for (vector<Residue>::iterator itResidue1=residues.begin(); itResidue1!=residues.end(); ++itResidue1 )
 	{
 		int nResidue1 = itResidue1->getNumber();
-		result[nResidue1] = map<int, vector<float> >();
-		for (vector<Residue>::iterator itResidue2=residues.begin(); itResidue2!=residues.end(); ++itResidue2 )
+		result[nResidue1] = getClosestBases(*itResidue1);
+	}
+
+	printVector(result);
+	pythonPlotBasesEcarts();
+}
+
+vector<int> Analysis::getClosestBases(Residue residue)
+{
+	Atom lastAtom1 = residue.getAtom(lastAtom[residue.getType()]);
+	int nFrame = lastAtom1.getCoordinates().size();
+	vector<int> result;
+	vector<Residue> residues ( moleculeToAnalyse.getResidues() );
+
+	for (int frame(0); frame<nFrame; frame++)
+	{
+		int mini;
+		int closestResidue (-1);
+
+		for(vector<Residue>::iterator itResidue=residues.begin(); itResidue!=residues.end(); ++itResidue)
 		{
-			int nResidue2 = itResidue2->getNumber();
-			if(nResidue1 != nResidue2)
+			if(residue.getNumber() != itResidue->getNumber())
 			{
-				if(itResidue1->hasAtom(lastAtom[itResidue1->getType()]) and itResidue2->hasAtom(lastAtom[itResidue2->getType()]))
+				if(residue.hasAtom(lastAtom[residue.getType()]) and
+				   itResidue->hasAtom(lastAtom[itResidue->getType()]))
 				{
-					result[nResidue1][nResidue2] = distances(itResidue1->getAtom(lastAtom[itResidue1->getType()]),
-															 itResidue2->getAtom(lastAtom[itResidue2->getType()]));
+					int d = dist(residue.getAtom(lastAtom[residue.getType()]).getCoordinates()[frame],
+									 itResidue->getAtom(lastAtom[itResidue->getType()]).getCoordinates()[frame]);
+					if (d<mini or closestResidue==-1)
+					{
+						mini = d;
+						closestResidue = itResidue->getNumber();
+					}
 				}
 			}
 		}
+		result.push_back(closestResidue);
 	}
-	printVector(result);
+
+
+	return result;
+
 }
 
 void Analysis::pythonPlotAntiSyn()
@@ -172,5 +200,34 @@ void Analysis::pythonPlotAntiSyn()
 	cout << "	pylab.bar(left=bins[:-1],height=[ math.log(v)  if v!=0 else 0 for v in values] ,width=2*numpy.pi/36);" << endl;
 	cout << "	pylab.title('Residue number '+str(resNumber))" << endl;
 	cout << "	pylab.savefig('polar_log_'+str(resNumber)+'.png')" << endl;
+	cout << "	pylab.clf()" << endl;
+}
+
+
+void Analysis::pythonPlotBasesEcarts()
+{
+	cout << "from matplotlib.lines import Line2D" << endl;
+	cout << "import pylab # the matlab-like interface of matplotlib import numpy" << endl;
+	cout << "import numpy" << endl;
+	cout << "import math" << endl;
+	cout << "import os" << endl << endl;
+
+	cout << "try:" << endl;
+	cout << "	os.makedirs('basesEcarts')"<< endl;
+	cout << "except:"<< endl;
+	cout << "	pass"<< endl;
+
+	cout << "for resNumber in dic:" << endl;
+	cout << "	y = dic[resNumber]" << endl;
+	cout << "	pylab.plot(range(len(y)), y)" << endl;
+	cout << "	pylab.savefig('basesEcarts/'+str(resNumber)+'.png')" << endl;
+	cout << "	pylab.clf()" << endl;
+
+	cout << "for resNumber in dic:" << endl;
+	cout << "	y = dic[resNumber]" << endl;
+	cout << "	values,bins=numpy.histogram(y,bins=36)" << endl;
+	cout << "	pylab.bar(left=bins[:-1],height=values);" << endl;
+	cout << "	pylab.savefig('basesEcarts/hist'+str(resNumber)+'.png')" << endl;
+	cout << "	pylab.clf()" << endl;
 	cout << "	pylab.clf()" << endl;
 }

@@ -18,6 +18,8 @@ class Analysis
 	 private:
 		Molecule moleculeToAnalyse;
 		void pythonPlotAntiSyn();
+		void pythonPlotBasesEcarts();
+		std::vector<int> getClosestBases(Residue residue);
 		std::map<std::string, std::string> lastAtom;
 	 
 };
