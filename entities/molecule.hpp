@@ -30,7 +30,7 @@ class Molecule : public Entity
 
 		int getType();
 
-		enum MOLECULE_TYPE {RNA, DNA, PROTEIN, UNKNOWN};
+		static enum MOLECULE_TYPE {RNA, DNA, PROTEIN, UNKNOWN};
 
 	private:
 		std::map<std::string, Chain> m_chains;

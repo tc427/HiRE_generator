@@ -7,8 +7,12 @@ Entity::Entity() :m_number(-1)
 
 }
 
-template <typename T>
-Entity::Entity(int number, T type, std::string name) : m_number(number), m_name(name)
+Entity::Entity(int number, int type, std::string name) : m_number(number), m_name(name), m_type(type)
+{
+
+}
+
+Entity::Entity(int number, string type, std::string name) : m_number(number), m_name(name)
 {
 	setType(type);
 }
@@ -33,7 +37,7 @@ int Entity::getType()
 	return m_type;
 }
 
-string Entity::getType()
+string Entity::getStrType()
 {
 	return intTypeToStr[m_type];
 }

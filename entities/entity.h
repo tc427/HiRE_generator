@@ -12,14 +12,14 @@ class Entity
 {
 	public:
 		Entity();
-		template <typename T>
-		Entity(int number,T type, std::string name);
+		Entity(int number,int type, std::string name);
+		Entity(int number,std::string type, std::string name);
 		virtual ~Entity();
 
 		int getNumber();
 		void setNumber(int number);
 		int getType();
-		std::string getType();
+		std::string getStrType();
 		void setType(int type);
 		void setType(std::string type);
 		std::string getName();
