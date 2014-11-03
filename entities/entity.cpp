@@ -7,9 +7,10 @@ Entity::Entity() :m_number(-1)
 
 }
 
-Entity::Entity(int number, std::string type, std::string name) : m_number(number), m_type(type), m_name(name)
+template <typename T>
+Entity::Entity(int number, T type, std::string name) : m_number(number), m_name(name)
 {
-
+	setType(type);
 }
 
 Entity::~Entity()
@@ -27,16 +28,26 @@ void Entity::setNumber(int number)
 	m_number= number;
 }
 
-string Entity::getType()
+int Entity::getType()
 {
 	return m_type;
 }
 
-void Entity::setType(string type)
+string Entity::getType()
+{
+	return intTypeToStr[m_type];
+}
+
+void Entity::setType(int type)
 {
 	m_type = type;
 }
 
+
+void Entity::setType(string type)
+{
+	m_type = strTypeToInt[type];
+}
 
 std::string Entity::getName()
 {

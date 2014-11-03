@@ -32,6 +32,8 @@ class Residue : public Entity
 
 		static int getNResidues();
 
+		enum RESIDUE_TYPE {A, C, T, G, U};
+
 	private:
 		std::map<std::string, Atom> m_atoms;
 		Chain *m_parent;

@@ -26,6 +26,9 @@ class Atom : public Entity
 
 		static int getNAtoms();
 
+		enum ATOM_TYPE {H, C, N, O, P, Mg};
+
+
 	private:
 		Residue *m_parent;
 		std::vector<Vector3d> m_childs;

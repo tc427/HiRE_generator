@@ -28,6 +28,10 @@ class Molecule : public Entity
 		std::vector<Residue> getResidues();
 		std::vector<Atom> getAtoms();
 
+		int getType();
+
+		enum MOLECULE_TYPE {RNA, DNA, PROTEIN, UNKNOWN};
+
 	private:
 		std::map<std::string, Chain> m_chains;
 		

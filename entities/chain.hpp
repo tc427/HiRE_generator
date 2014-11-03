@@ -37,6 +37,8 @@ class Chain : public Entity
 
 		static int getNChains();
 
+		enum GRAIN_TYPE {CG, FA, UNKNOWN};
+
 	private:
 		std::map<int, Residue> m_residues;
 		Molecule *m_parent;

@@ -91,6 +91,24 @@ void Molecule::checkAtomsNumbers()
 	}
 }
 
+int Molecule::getType()
+{
+	return Molecule::UNKNOWN;
+}
+
+/*void Molecule::checkType()
+{
+	bool isCG = false;
+	bool ifFA = false;
+
+	vector<Residue> residues = getResidues();
+
+	for(vector<Residue>::iterator residue=residues.begin(); residue!=residues.end(); ++residue)
+	{
+
+	}
+}*/
+
 void Molecule::printMolecule(ostream& out) const
 {
 	out << "\n\n<molecule chainsCount=" << m_chains.size() << "   ";
