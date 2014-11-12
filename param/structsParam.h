@@ -6,55 +6,64 @@
 
 using namespace std;
 
-struct weightParam
-{
-
-	string atom;
-
-	float weight;
-
-};
-
-struct bondParam
+struct BondParam
 {
 	string atom1;
 
+	int decalageAtom1;
+
 	string atom2;
 
-	float l;
+	int decalageAtom2;
 
-	float force;
+	double l;
+
+	double force;
+
 };
 
-struct angleParam
+struct AngleParam
 {
 	string atom1;
 
+	int decalageAtom1;
+
 	string atom2;
+
+	int decalageAtom2;
 
 	string atom3;
 
-	float rk;
+	int decalageAtom3;
 
-	float req;
+	double rk;
+
+	double req;
 };
 
-struct dihedralParam
+struct DihedralParam
 {
-
 	string atom1;
+
+	int decalageAtom1;
 
 	string atom2;
 
+	int decalageAtom2;
+
 	string atom3;
+
+	int decalageAtom3;
 
 	string atom4;
 
-	float pk;
+	int decalageAtom4;
 
-	float pn;
+	double pk;
 
-	float phase;
+	double pn;
+
+	double phase;
 
 };
 

@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <algorithm>
 
 #include "chain.hpp"
 #include "residue.hpp"
@@ -28,9 +29,10 @@ class Molecule : public Entity
 		std::vector<Residue> getResidues();
 		std::vector<Atom> getAtoms();
 
-		int getType();
+		int getIntChainsType();
 
-		static enum MOLECULE_TYPE {RNA, DNA, PROTEIN, UNKNOWN};
+		enum GRAIN_TYPE {CG, FA};
+		enum MOLECULE_TYPE {RNA, DNA, PROTEIN, UNKNOWN};
 
 	private:
 		std::map<std::string, Chain> m_chains;

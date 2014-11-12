@@ -78,6 +78,9 @@ vector<Atom> Molecule::getAtoms()
 		vector<Atom> vecTmp(it->second.getAtoms());
 		vecToReturn.insert(vecToReturn.end(), vecTmp.begin(), vecTmp.end());
 	}
+
+	sort(vecToReturn.begin(), vecToReturn.end());
+
 	return vecToReturn;
 }
 
@@ -91,9 +94,26 @@ void Molecule::checkAtomsNumbers()
 	}
 }
 
-int Molecule::getType()
+int Molecule::getIntChainsType()
 {
-	return Molecule::UNKNOWN;
+	vector<int> vec;
+	int mini(15);
+	int maxi(-5);
+	int n;
+
+	for(map<string, Chain>::iterator it=m_chains.begin(); it!=m_chains.end(); ++it)
+	{
+		n = it->second.getIntType();
+		if(n<mini) {
+			mini = n;}
+		if(n>maxi) {
+			maxi = n;}
+	}
+
+	if(mini == maxi) {
+		return mini;
+	} else {
+		return Molecule::UNKNOWN; }
 }
 
 /*void Molecule::checkType()

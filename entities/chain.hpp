@@ -32,12 +32,12 @@ class Chain : public Entity
 
 		int checkAtomsNumbers(int atomNumber);
 		std::string getSequence();
-		void checkType();
+		int getIntType();
 		void printChain(std::ostream& out) const;
 
 		static int getNChains();
 
-		enum GRAIN_TYPE {CG, FA, UNKNOWN};
+		enum CHAIN_TYPE {RNA, DNA, PROTEIN, UNKNOWN};
 
 	private:
 		std::map<int, Residue> m_residues;

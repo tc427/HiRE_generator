@@ -95,7 +95,6 @@ void Analysis::plotAntiSyn()
 			   residue->hasAtom(resType + "1") and
 			   residue->hasAtom(resType + "2") )
 			{
-
 				results[residue->getNumber()] = dihedrals( residue->getAtom("CA"),
 													   	  residue->getAtom("CY"),
 														  residue->getAtom(resType + "1"),
@@ -200,6 +199,14 @@ void Analysis::pythonPlotAntiSyn()
 	cout << "	pylab.bar(left=bins[:-1],height=[ math.log(v)  if v!=0 else 0 for v in values] ,width=2*numpy.pi/36);" << endl;
 	cout << "	pylab.title('Residue number '+str(resNumber))" << endl;
 	cout << "	pylab.savefig('polar_log_'+str(resNumber)+'.png')" << endl;
+	cout << "	pylab.clf()" << endl;
+	cout << "for resNumber in dic:" << endl;
+	cout << "	y = [n if n<300 else n-360 for n in dic[resNumber]]" << endl;
+	cout << "	x = range(len(y))" << endl;
+	cout << "	pylab.plot(x, y)" << endl;
+	cout << "	pylab.ylim(-20, 380)" << endl;
+	cout << "	pylab.title('Residue number '+str(resNumber))" << endl;
+	cout << "	pylab.savefig('line_'+str(resNumber)+'.png')" << endl;
 	cout << "	pylab.clf()" << endl;
 }
 

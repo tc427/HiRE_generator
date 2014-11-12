@@ -13,12 +13,11 @@ class Fa2cg
 {
 	public:
 		Fa2cg();
-		static void fa2cg(Molecule &molecule);
+		Molecule fa2cg(Molecule &molecule);
 
 	private:
-		static void transformResidue(Residue &residue);
-		static void normaliseResidue(Residue &residue);
-		static Vector3d getCoordFromAtomVector(std::vector<Atom>);
-		static int getMaxNAtom(Molecule &molecule);
+		void transformResidue(Residue &residue);
+		void normaliseResidue(Residue &residue);
+		Vector3d getCoordFromAtomVector(std::vector<Atom>);
 
 };

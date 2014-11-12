@@ -5,7 +5,8 @@ using namespace std;
 map<string, float> Fa2cgParam::mass;
 map<string, string > Fa2cgParam::fa2cg;
 map<string, map<vector<string>, string > > Fa2cgParam::fa2cgCycles;
-map<string, string> Fa2cgParam::normalisation;
+vector<string> Fa2cgParam::fa2cgOrder;
+
 
 Fa2cgParam::Fa2cgParam() {
 	// TODO Auto-generated constructor stub
@@ -18,19 +19,37 @@ Fa2cgParam::~Fa2cgParam() {
 
 void Fa2cgParam::initialise()
 {
-	mass["H"] = 1;
-	mass["C"] = 12;
-	mass["N"] = 14;
-	mass["O"] = 16;
-	mass["Mg"] = 24;
-	mass["P"] = 30;
+	mass = { { "H",  1 },
+			 { "C", 12 },
+			 { "N", 14 },
+			 { "O", 16 },
+			 {"Mg", 24 },
+			 { "P", 30 } };
 
-	fa2cg = map< string, string >();
-	fa2cg["P"]   = "P";
-	fa2cg["O5'"] = "O5*";
-	fa2cg["C5'"] = "C5*";
-	fa2cg["C4'"]  = "CA";
-	fa2cg["C1'"]  = "CY";
+	fa2cgOrder = {  "P",
+				    "O5*",
+				    "O5'",
+				    "C5*",
+				    "C5'",
+				     "CA",
+				    "C4'",
+				    "C4*",
+				     "CY",
+				    "C1'",
+				    "C1*" };
+
+	fa2cg = { {  "P",   "P" },
+			  {"O5*", "O5*" },
+			  {"O5'", "O5*" },
+			  {"C5*", "C5*" },
+			  {"C5'", "C5*" },
+			  { "CA",  "CA" },
+			  {"C4'",  "CA" },
+			  {"C4*",  "CA" },
+			  { "CY",  "CY" },
+			  {"C1'",  "CY" },
+			  {"C1*",  "CY" } };
+
 
 	vector<string> A1;
 	vector<string> A2;
@@ -62,6 +81,7 @@ void Fa2cgParam::initialise()
 	C1.push_back("C5");
 	C1.push_back("C6");
 	C1.push_back("O2");
+	C1.push_back("O");
 
 	G1.push_back("N7");
 	G1.push_back("N9");
@@ -85,6 +105,7 @@ void Fa2cgParam::initialise()
 	U1.push_back("C5");
 	U1.push_back("C6");
 	U1.push_back("O2");
+	U1.push_back("O");
 	U1.push_back("O4");
 	//U1.push_back("O");
 
@@ -95,8 +116,10 @@ void Fa2cgParam::initialise()
 	T1.push_back("C5");
 	T1.push_back("C6");
 	T1.push_back("O2");
+	T1.push_back("O");
 	T1.push_back("O4");
 	T1.push_back("C7");
+	T1.push_back("C5M");
 
 	fa2cgCycles["A"] = map< vector<string>, string > ();
 	fa2cgCycles["C"] = map< vector<string>, string > ();
@@ -126,10 +149,6 @@ void Fa2cgParam::initialise()
 	fa2cgCycles["DU"][ U1 ] = "U1";
 	fa2cgCycles["DT"][ T1 ] = "U1";
 
-	normalisation["C5M"] = "C7";
-	normalisation["O"] = "O2";
-
-
 }
 
 float Fa2cgParam::getMass(string element)
@@ -157,7 +176,10 @@ map<vector<string>, string > Fa2cgParam::getFa2cgCycles(string type)
 }
 
 
-map<string, string> Fa2cgParam::getNormalisation()
+vector<string> Fa2cgParam::getFa2cgOrder()
 {
-	return normalisation;
+	if(fa2cgOrder.empty()) {
+		initialise(); }
+
+	return fa2cgOrder;
 }

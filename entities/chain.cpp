@@ -119,7 +119,7 @@ string Chain::getSequence()
 	return sequence;
 }
 
-void Chain::checkType()
+int Chain::getIntType()
 {
 	string sequence = getSequence();
 	size_t nU = std::count(sequence.begin(), sequence.end(), 'U');
@@ -129,13 +129,13 @@ void Chain::checkType()
 	size_t nG = std::count(sequence.begin(), sequence.end(), 'G');
 
 	if(sequence.size() == nA+nC+nT+nG) {
-		m_type = "DNA";
+		return Chain::DNA;
 	} else if(sequence.size() == nA+nC+nU+nG) {
-		m_type = "RNA";
+		return Chain::RNA;
 	} else {
-		m_type = "UNDEFINED";
 		cout << "ERROR: Cannot determine chain type for sequence :" << endl;
 		cout << sequence << endl << this << endl;
+		return Chain::UNKNOWN;
 	}
 }
 
