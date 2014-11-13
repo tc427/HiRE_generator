@@ -7,11 +7,26 @@ map<int, ChainParameters> ChainParameterManager::m_chainParameters = map<int, Ch
 ChainParameters& ChainParameterManager::getParametersForChainType(int chainType)
 {
 	// TODO: return an error if key not in map
-	init();
+	if(m_chainParameters.count(chainType)==0) {
+		init(chainType);}
+
 	return m_chainParameters[chainType];
 }
 
-void ChainParameterManager::init()
+void ChainParameterManager::init(int chainType)
 {
-	m_chainParameters[Molecule::RNA] = RNAParameters();
+	switch(chainType) {
+		case(Molecule::RNA):
+			m_chainParameters[Molecule::RNA] = RNAParameters();
+			break;
+		case(Molecule::DNA):
+			m_chainParameters[Molecule::DNA] = DNAParameters();
+			break;
+		case(Molecule::PROTEIN):
+			cout << "ERROR: PROTEIN param not yet implemented !!!" << endl;
+			break;
+		case(Molecule::UNKNOWN):
+			cout << "ERROR: UNKONWON chain don't have any parameters !!!" << endl;
+			break;
+	}
 }
