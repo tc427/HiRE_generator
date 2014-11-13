@@ -140,7 +140,6 @@ void OpepInputParamWriter::printRecap(int nBondsInSystem, int nAnglesInSystem, i
 	m_topFile << setw(6) << m_atomTypesInSystem.size();
 	m_topFile << setw(6) << nBondsInSystem;
 	m_topFile << setw(6) << nAnglesInSystem;
-	m_topFile << endl;
 	m_topFile << setw(6) << nDihedralsInSystem;
 	m_topFile << setw(6) << m_molecule.getResidues().size();
 	m_topFile << setw(6) << m_chainParameters.getBonds().size();
@@ -301,7 +300,7 @@ void OpepInputParamWriter::printDetails(vector<int> vector)
 		m_topFile << setw(6) << number;
 		n++;
 	}
-	m_topFile << endl << endl;
+	m_topFile << endl;
 }
 
 
