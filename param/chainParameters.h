@@ -16,7 +16,7 @@ class ChainParameters
 		string getAtomNameToAtomType(std::string name);
 		std::string getAtomTypeToAtomName(std::string);
 		std::map<std::string, std::string>& getAtomTypeToMSE();
-		std::map<std::string, int>& getResidueLetterToResidueNumber();
+		int getResidueLetterToResidueNumber(std::string type);
 		std::string getResidueLetterToResidueName(std::string letter);
 
 		std::map<std::string, double>& getWeights();

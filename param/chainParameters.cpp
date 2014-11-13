@@ -29,9 +29,9 @@ map<string, string>& ChainParameters::getAtomTypeToMSE()
 }
 
 
-map<string, int>& ChainParameters::getResidueLetterToResidueNumber()
+int ChainParameters::getResidueLetterToResidueNumber(string type)
 {
-	return residueLetterToResidueNumber;
+	return residueLetterToResidueNumber[type];
 }
 
 

@@ -111,6 +111,10 @@ void OpepInputParamWriter::write(string filename)
 	printDetails(dihedralNumbers);
 
 	m_topFile.close();
+
+
+	writeBaselistFile();
+	writeIchainFile();
 }
 
 void OpepInputParamWriter::printRecap(int nBondsInSystem, int nAnglesInSystem, int nDihedralsInSystem)
@@ -298,4 +302,35 @@ void OpepInputParamWriter::printDetails(vector<int> vector)
 		n++;
 	}
 	m_topFile << endl << endl;
+}
+
+
+void OpepInputParamWriter::writeBaselistFile()
+{
+	ofstream baselistFile("baselist.dat");
+
+	for(Residue residue: m_molecule.getResidues())
+	{
+		baselistFile << residue.getAtoms()[residue.getAtoms().size() - 1].getNumber();
+		baselistFile <<  " ";
+		baselistFile <<  m_chainParameters.getResidueLetterToResidueNumber(residue.getType());
+		baselistFile << endl;
+	}
+
+	baselistFile.close();
+}
+
+void OpepInputParamWriter::writeIchainFile()
+{
+	ofstream ichainfile("ichain.dat");
+
+	ichainfile << m_molecule.getChains().size() << endl;
+
+	int n(0);
+	for(Chain chain: m_molecule.getChains())
+	{
+		ichainfile << ++n << " " << chain.getAtoms().size() << " 0" << endl;
+	}
+
+	ichainfile.close();
 }

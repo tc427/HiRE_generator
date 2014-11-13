@@ -30,6 +30,9 @@ class OpepInputParamWriter
 
 		void printDetails(vector<int> vector);
 
+		void writeBaselistFile();
+		void writeIchainFile();
+
 		Molecule& m_molecule;
 		std::vector<std::string> m_atomTypesInSystem;
 		ChainParameters& m_chainParameters;
