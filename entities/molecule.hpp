@@ -10,6 +10,9 @@
 #include "atom.hpp"
 #include "entity.h"
 
+
+enum class MOLECULE_TYPE {RNA, DNA, PROTEIN, UNKNOWN};
+
 class Molecule : public Entity
 {
 
@@ -29,10 +32,12 @@ class Molecule : public Entity
 		std::vector<Residue> getResidues();
 		std::vector<Atom> getAtoms();
 
+		MOLECULE_TYPE getMoleculeType();
+
 		int getIntChainsType();
 
 		enum GRAIN_TYPE {CG, FA};
-		enum MOLECULE_TYPE {RNA, DNA, PROTEIN, UNKNOWN};
+		enum MOLECULE_TYPE_OLD {RNA, DNA, PROTEIN, UNKNOWN};
 
 	private:
 		std::map<std::string, Chain> m_chains;

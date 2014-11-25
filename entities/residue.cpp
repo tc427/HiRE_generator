@@ -107,3 +107,13 @@ ostream &operator<<( ostream &out, Residue const& residue )
 	residue.printResidue(out);
 	return out ;
 }
+
+bool operator< (Residue const& residue1, Residue const& residue2)
+{
+	return residue1.m_number<residue2.m_number;
+}
+
+bool operator> (Residue const& residue1, Residue const& residue2)
+{
+	return residue1.m_number>residue2.m_number;
+}

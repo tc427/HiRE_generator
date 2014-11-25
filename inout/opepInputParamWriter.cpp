@@ -14,6 +14,20 @@ OpepInputParamWriter::~OpepInputParamWriter()
 
 void OpepInputParamWriter::write(string filename)
 {
+	bool isCirculare;
+
+	string answer = "";
+	while(answer != "Y" && answer != "N") {
+		cout << "Circular molecule [Y/N]?" << endl;
+		cin >> answer;
+	}
+
+	if(answer=="Y") {
+		isCirculare = true;
+	} else {
+		isCirculare = false;
+	}
+
 	vector<int> bondNumbers = vector<int>();
 	vector<int> angleNumbers = vector<int>();
 	vector<int> dihedralNumbers = vector<int>();
@@ -97,6 +111,132 @@ void OpepInputParamWriter::write(string filename)
 
 	}
 
+	if(isCirculare) {
+		for(Chain chain: m_molecule.getChains()) {
+			vector<Residue> residues = chain.getResidues();
+
+			Residue firstResidue = residues[0];
+			Residue lastResidue = residues[residues.size() - 1];
+			int n(0);
+
+			for(BondParam bondParam: m_chainParameters.getBonds())
+			{
+				n++;
+				Residue residue1;
+				Residue residue2;
+				if(bondParam.decalageAtom1==1 || bondParam.decalageAtom2==1) {
+
+					if(bondParam.decalageAtom1==1) {
+						residue1=lastResidue;
+					} else {
+						residue1=firstResidue;
+					}
+					if(bondParam.decalageAtom2==1) {
+						residue2=lastResidue;
+					} else {
+						residue2=firstResidue;
+					}
+
+					if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom1) ) &&
+						 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom2) ) )
+					{
+						bondNumbers.push_back(3*( residue1.getAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom1) ).getNumber() -1 ) );
+						bondNumbers.push_back(3*( residue2.getAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom2) ).getNumber() -1 ) );
+						bondNumbers.push_back(n);
+					}
+				}
+			}
+
+			n = 0;
+			for(AngleParam angleParam: m_chainParameters.getAngles())
+			{
+				n++;
+				Residue residue1;
+				Residue residue2;
+				Residue residue3;
+				if(angleParam.decalageAtom1==1 || angleParam.decalageAtom2==1
+											   || angleParam.decalageAtom3==1)
+				{
+
+					if(angleParam.decalageAtom1==1) {
+						residue1=lastResidue;
+					} else {
+						residue1=firstResidue;
+					}
+					if(angleParam.decalageAtom2==1) {
+						residue2=lastResidue;
+					} else {
+						residue2=firstResidue;
+					}
+					if(angleParam.decalageAtom3==1) {
+						residue3=lastResidue;
+					} else {
+						residue3=firstResidue;
+					}
+
+					if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom1) ) &&
+						 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom2) ) &&
+						 residue3.hasAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom3) ) )
+					{
+						angleNumbers.push_back(3*( residue1.getAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom1) ).getNumber() -1 ) );
+						angleNumbers.push_back(3*( residue2.getAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom2) ).getNumber() -1 ) );
+						angleNumbers.push_back(3*( residue3.getAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom3) ).getNumber() -1 ) );
+						angleNumbers.push_back(n);
+					}
+				}
+			}
+
+			n = 0;
+			for(DihedralParam dihedralParam: m_chainParameters.getDiedrals())
+			{
+				n++;
+				Residue residue1;
+				Residue residue2;
+				Residue residue3;
+				Residue residue4;
+				if(dihedralParam.decalageAtom1==1 || dihedralParam.decalageAtom2==1
+												  || dihedralParam.decalageAtom3==1
+												  || dihedralParam.decalageAtom4==1)
+				{
+
+					if(dihedralParam.decalageAtom1==1) {
+						residue1=lastResidue;
+					} else {
+						residue1=firstResidue;
+					}
+					if(dihedralParam.decalageAtom2==1) {
+						residue2=lastResidue;
+					} else {
+						residue2=firstResidue;
+					}
+					if(dihedralParam.decalageAtom3==1) {
+						residue3=lastResidue;
+					} else {
+						residue3=firstResidue;
+					}
+					if(dihedralParam.decalageAtom4==1) {
+						residue4=lastResidue;
+					} else {
+						residue4=firstResidue;
+					}
+
+					if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom1) ) &&
+						 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom2) ) &&
+						 residue3.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom3) ) &&
+						 residue4.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom4) ) )
+					{
+						dihedralNumbers.push_back(3*( residue1.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom1) ).getNumber() -1 ) );
+						dihedralNumbers.push_back(3*( residue2.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom2) ).getNumber() -1 ) );
+						dihedralNumbers.push_back(3*( residue3.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom3) ).getNumber() -1 ) );
+						dihedralNumbers.push_back(3*( residue4.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom4) ).getNumber() -1 ) );
+						dihedralNumbers.push_back(n);
+					}
+				}
+			}
+		}
+	}
+
+
 
 	m_topFile.open(filename.c_str());
 
@@ -115,22 +255,23 @@ void OpepInputParamWriter::write(string filename)
 
 	writeBaselistFile();
 	writeIchainFile();
+	writeCshFile();
 }
 
 void OpepInputParamWriter::printRecap(int nBondsInSystem, int nAnglesInSystem, int nDihedralsInSystem)
 {
 
-	switch(m_molecule.getIntChainsType()) {
-		case(Molecule::RNA):
+	switch(m_molecule.getMoleculeType()) {
+		case(MOLECULE_TYPE::RNA):
 				m_topFile << "RNA molecule" << endl;
 				break;
-		case(Molecule::DNA):
+		case(MOLECULE_TYPE::DNA):
 				m_topFile << "DNA molecule" << endl;
 				break;
-		case(Molecule::PROTEIN):
+		case(MOLECULE_TYPE::PROTEIN):
 				m_topFile << "PROTEIN molecule" << endl;
 				break;
-		case(Molecule::UNKNOWN):
+		case(MOLECULE_TYPE::UNKNOWN):
 				m_topFile << "UNKNOWN molecule" << endl;
 				break;
 	}
@@ -332,4 +473,23 @@ void OpepInputParamWriter::writeIchainFile()
 	}
 
 	ichainfile.close();
+}
+
+void OpepInputParamWriter::writeCshFile()
+{
+	ofstream cshFile("parametres.csh");
+
+	cshFile << "setenv NATOMS			" ;
+	cshFile << m_molecule.getAtoms().size() << endl;
+	cshFile << "setenv MOLECULE_TYPE			" ;
+
+	if(m_molecule.getMoleculeType() == MOLECULE_TYPE::DNA) {
+		cshFile << "DNA" << endl;
+	} else if(m_molecule.getMoleculeType() == MOLECULE_TYPE::RNA) {
+		cshFile << "RNA" << endl;
+	} else {
+		cout << "ERROR: UNKNOWN molecule type in WriteCshFile" << endl;
+	}
+
+	cshFile.close();
 }

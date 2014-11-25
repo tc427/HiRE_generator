@@ -42,4 +42,6 @@ class Residue : public Entity
 		static int nResidues;
 
 	friend std::ostream& operator<< (std::ostream& flux, Residue const& residue);
+	friend bool operator< (Residue const& residue1, Residue const& residue2);
+	friend bool operator> (Residue const& residue1, Residue const& residue2);
 };

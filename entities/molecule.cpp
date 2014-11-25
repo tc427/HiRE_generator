@@ -113,7 +113,41 @@ int Molecule::getIntChainsType()
 	if(mini == maxi) {
 		return mini;
 	} else {
-		return Molecule::UNKNOWN; }
+		return -1; }
+}
+
+MOLECULE_TYPE Molecule::getMoleculeType()
+{
+	int nA(0);
+	int nC(0);
+	int nT(0);
+	int nG(0);
+	int nU(0);
+
+	for(auto residue: getResidues())
+	{
+		if(residue.getType() == "A") {
+			nA++;
+		} else if(residue.getType() == "C") {
+			nC++;
+		} else if(residue.getType() == "T") {
+			nT++;
+		} else if(residue.getType() == "G") {
+			nG++;
+		} else if(residue.getType() == "U") {
+			nU++;
+		} else {
+			return MOLECULE_TYPE::UNKNOWN;
+		}
+	}
+
+	if(nA+nC+nT+nG == getResidues().size()) {
+		return MOLECULE_TYPE::DNA;
+	} else if (nA+nC+nG+nU  == getResidues().size() ){
+		return MOLECULE_TYPE::RNA;
+	} else {
+		return MOLECULE_TYPE::UNKNOWN;
+	}
 }
 
 /*void Molecule::checkType()

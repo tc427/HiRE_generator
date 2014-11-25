@@ -66,6 +66,8 @@ vector<Residue> Chain::getResidues()
 		vecToReturn.push_back(it->second);
 	}
 
+	sort(vecToReturn.begin(), vecToReturn.end());
+
 	return vecToReturn;
 }
 
