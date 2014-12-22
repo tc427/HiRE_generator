@@ -33,6 +33,7 @@ int main(int argc, char ** argv)
 	Fa2cg fa = Fa2cg();
 	Molecule faMolecule = fa.fa2cg(molecule);
 	PdbWriter::write(name+"_CG.pdb", faMolecule);
+	PdbWriter::write("conf_initiale_RNA.pdb", faMolecule);
 	OpepInputParamWriter opepInputParamWriter(faMolecule);
 
 	opepInputParamWriter.write(name+".top");

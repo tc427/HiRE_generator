@@ -253,6 +253,23 @@ void OpepInputParamWriter::write(string filename)
 	m_topFile.close();
 
 
+	m_topFile.open("parametres.top");
+
+	printRecap(bondNumbers.size()/3, angleNumbers.size()/4, dihedralNumbers.size()/5);
+	printAtomsDetails();
+	printResiduesDetails();
+	printBondsDefinitionDetails();
+	printAnglesDefinitionDetails();
+	printDihedresDefinitionDetails();
+	printDetails(bondNumbers);
+	printDetails(angleNumbers);
+	printDetails(dihedralNumbers);
+
+	m_topFile.close();
+
+
+
+
 	writeBaselistFile();
 	writeIchainFile();
 	writeCshFile();

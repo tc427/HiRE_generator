@@ -64,6 +64,7 @@ void Fa2cgParam::initialise()
 	A1.push_back("C4");
 	A1.push_back("C5");
 	A1.push_back("C8");
+	A1.push_back("A1");
 
 	A2.push_back("N1");
 	A2.push_back("N3");
@@ -72,6 +73,7 @@ void Fa2cgParam::initialise()
 	A2.push_back("C4");
 	A2.push_back("C5");
 	A2.push_back("C6");
+	A2.push_back("A2");
 
 	C1.push_back("N1");
 	C1.push_back("N3");
@@ -82,12 +84,14 @@ void Fa2cgParam::initialise()
 	C1.push_back("C6");
 	C1.push_back("O2");
 	C1.push_back("O");
+	C1.push_back("C1");
 
 	G1.push_back("N7");
 	G1.push_back("N9");
 	G1.push_back("C4");
 	G1.push_back("C5");
 	G1.push_back("C8");
+	G1.push_back("G1");
 
 	G2.push_back("N1");
 	G2.push_back("N2");
@@ -97,6 +101,7 @@ void Fa2cgParam::initialise()
 	G2.push_back("C5");
 	G2.push_back("C6");
 	G2.push_back("O6");
+	G2.push_back("G2");
 
 	U1.push_back("N1");
 	U1.push_back("N3");
@@ -107,7 +112,7 @@ void Fa2cgParam::initialise()
 	U1.push_back("O2");
 	U1.push_back("O");
 	U1.push_back("O4");
-	//U1.push_back("O");
+	U1.push_back("U1");
 
 	T1.push_back("N1");
 	T1.push_back("N3");
@@ -120,6 +125,7 @@ void Fa2cgParam::initialise()
 	T1.push_back("O4");
 	T1.push_back("C7");
 	T1.push_back("C5M");
+	T1.push_back("U1");
 
 	fa2cgCycles["A"] = map< vector<string>, string > ();
 	fa2cgCycles["C"] = map< vector<string>, string > ();
