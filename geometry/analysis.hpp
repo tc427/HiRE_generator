@@ -14,11 +14,13 @@ class Analysis
 		Analysis(Molecule moleculeToAnalyse);
 		void plotAntiSyn();
 		void plotBasesEcarts();
+		void plotStrongStopDist();
 
 	 private:
 		Molecule moleculeToAnalyse;
 		void pythonPlotAntiSyn();
 		void pythonPlotBasesEcarts();
+		void pythonPlotStrongStop();
 		std::vector<int> getClosestBases(Residue residue);
 		std::map<std::string, std::string> lastAtom;
 	 

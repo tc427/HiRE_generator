@@ -63,6 +63,26 @@ void printVector(map< Type1 , Type2 > vec, bool first=true)
 	cout << "}" << endl ;
 }
 
+template<typename Type>
+void printVector(map< string , Type > vec, bool first=true)
+{
+	bool firstElement = true;
+
+	if(first) {
+		cout << "dic = "; }
+	cout << "{";
+	for (typename map< string , Type >::iterator it=vec.begin(); it!=vec.end(); ++it)
+	{
+		if(firstElement) {
+			firstElement = false;
+		} else {
+			cout << ","; }
+		cout << "'" << it->first  << "'" << " : ";
+		printVector(it->second, false);
+	}
+	cout << "}" << endl ;
+}
+
 Analysis::Analysis()
 {
 	lastAtom["A"] = "A2";
@@ -238,3 +258,81 @@ void Analysis::pythonPlotBasesEcarts()
 	cout << "	pylab.clf()" << endl;
 	cout << "	pylab.clf()" << endl;
 }
+
+
+void Analysis::pythonPlotStrongStop()
+{
+	cout << "from matplotlib.lines import Line2D" << endl;
+	cout << "import pylab # the matlab-like interface of matplotlib import numpy" << endl;
+	cout << "import numpy" << endl;
+	cout << "import math" << endl;
+
+	cout << "for key in dic:" << endl;
+	cout << "	y = dic[key]" << endl;
+	cout << "	values,bins=numpy.histogram(y,bins=60)" << endl;
+	cout << "	pylab.bar(left=bins[:-1],height=values);" << endl;
+	cout << "	pylab.savefig('hist_'+key.replace(' ', '_')+'.png')" << endl;
+	cout << "	pylab.clf()" << endl;
+
+
+	cout << "for key in dic:" << endl;
+	cout << "	y = dic[key]" << endl;
+	cout << "	pylab.plot(range(len(y)), y);" << endl;
+	cout << "	pylab.savefig('plot_'+key.replace(' ', '_')+'.png')" << endl;
+	cout << "	pylab.clf()" << endl;
+
+	cout << "keyList = dic.keys()" << endl;
+	cout << "with open('mycsvfile.csv', 'wb') as csvFile:  # Just use 'w' mode in 3.x" << endl;
+	cout << "	csvFile.write(','.join(keyList)+'\\n')" << endl;
+	cout << "	for i in xrange(len(dic[keyList[0]])):" << endl;
+	cout << "		tmp=[str(dic[key][i]) for key in keyList ]" << endl;
+	cout << "		csvFile.write(','.join(tmp)+'\\n')" << endl;
+
+	cout << "for k1 in keyList:" << endl;
+	cout << "	for k2 in keyList:" << endl;
+	cout << "		if k1 != k2:" << endl;
+	cout << "			x = dic[k1]" << endl;
+	cout << "			y = dic[k2]" << endl;
+	cout << "			pylab.plot(y, x, 'o')" << endl;
+	cout << "			pylab.savefig('test '+k1.replace(' ', '_')+'__'+k2.replace(' ', '_')+'.png')" << endl;
+	cout << "			pylab.clf()" << endl;
+
+}
+
+
+void Analysis::plotStrongStopDist()
+{
+	map<string, vector<float> > results;
+
+	Chain chain = moleculeToAnalyse.getChain("A");
+
+
+	results["hairpin 1"] = distances(chain.getResidue(4).getAtom("CA"),
+								     chain.getResidue(25).getAtom("CA"));
+	results["hairpin 2"] = distances(chain.getResidue(77).getAtom("CA"),
+									 chain.getResidue(101).getAtom("CA"));
+	results["hairpin 3"] = distances(chain.getResidue(134).getAtom("CA"),
+									 chain.getResidue(149).getAtom("CA"));
+
+	results["hairpin 1-2"] = distances(chain.getResidue(25).getAtom("CA"),
+									 chain.getResidue(101).getAtom("CA"));
+	results["hairpin 2-3"] = distances(chain.getResidue(101).getAtom("CA"),
+									 chain.getResidue(149).getAtom("CA"));
+	results["hairpin 3-1"] = distances(chain.getResidue(149).getAtom("CA"),
+									 chain.getResidue(25).getAtom("CA"));
+
+
+	results["apariement 1"] = distances(chain.getResidue(167).getAtom("A2"),
+									    chain.getResidue(133).getAtom("C1"));
+	results["apariement 2"] = distances(chain.getResidue(168).getAtom("C1"),
+			 	 	 	 	 	 	 	chain.getResidue(132).getAtom("G2"));
+	results["apariement 3"] = distances(chain.getResidue(169).getAtom("A2"),
+			 	 	 	 	 	 	 	chain.getResidue(131).getAtom("U1"));
+	results["apariement 4"] = distances(chain.getResidue(170).getAtom("A2"),
+									 	chain.getResidue(130).getAtom("U1"));
+	results["apariement 5"] = distances(chain.getResidue(171).getAtom("G2"),
+									    chain.getResidue(129).getAtom("C1"));
+
+	printVector(results);
+	pythonPlotStrongStop();
+ }
