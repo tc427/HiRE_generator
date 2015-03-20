@@ -3,7 +3,7 @@
 using namespace std ;
 
 template< typename Type >
-void printVector( vector< Type > vec, bool first=true)
+void printVector( vector< Type > vec, bool first)
 {
 	bool firstElement(true);
 
@@ -24,7 +24,7 @@ void printVector( vector< Type > vec, bool first=true)
 
 
 template<typename Type>
-void printVector(vector< vector< Type > > vec, bool first=true)
+void printVector(vector< vector< Type > > vec, bool first)
 {
 	bool firstElement(true);
 
@@ -44,7 +44,7 @@ void printVector(vector< vector< Type > > vec, bool first=true)
 }
 
 template<typename Type1, typename Type2>
-void printVector(map< Type1 , Type2 > vec, bool first=true)
+void printVector(map< Type1 , Type2 > vec, bool first)
 {
 	bool firstElement = true;
 
@@ -64,7 +64,7 @@ void printVector(map< Type1 , Type2 > vec, bool first=true)
 }
 
 template<typename Type>
-void printVector(map< string , Type > vec, bool first=true)
+void printVector(map< string , Type > vec, bool first)
 {
 	bool firstElement = true;
 
