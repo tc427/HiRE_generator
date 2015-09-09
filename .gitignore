@@ -1,9 +1,5 @@
 .project
-1F9L_11_Res.inp
-1F9L_11_Res.pdb
-1F9L_11_Res_CG.pdb
-conf_initiale_RNA.pdb
-test
-test.pdb
-testInpFile
 build
+.autotools
+.cproject
+opepFileGenerator

@@ -83,16 +83,16 @@ Molecule pdbParser::parsePdb(ifstream& pdbFile)
 			if(!molecule.getChain(sChain).getResidue(residueNumber).hasAtom(atomName))
 			{
 				string sAtomNumber = line.substr(6,5);
-				//string atomType = line.substr(76,2);
 				string atomType;
-				if(atomName == "P")
+				if(atomName.find("P") != std::string::npos)
 					atomType = "P";
-				else if(atomName == "O5*")
+				else if(atomName.find("O") != std::string::npos)
 					atomType = "O";
+				else if(atomName.find("N") != std::string::npos)
+					atomType = "N";
 				else
 					atomType = "C";
-				
-				trim(atomType);
+
 				trim(sAtomNumber);
 				
 				molecule.getChain(sChain).getResidue(residueNumber).addAtom(Atom(lexical_cast<int>(sAtomNumber), atomName, atomType ));
