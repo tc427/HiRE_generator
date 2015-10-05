@@ -18,6 +18,11 @@ using namespace std;
 
 int main(int argc, char ** argv)
 {
+    if(argc < 2)
+    {
+        std::cout << "A PDB file must be passed as an argument." << std::endl;
+        return 0;
+    }
 
 	//trjconv -f min.xtc -o traj.pdb -s conf_initiale_RNA.pdb
 	string fileName = argv[1];
