@@ -24,8 +24,8 @@ class Entity
 
 	protected:
 		int m_number;
-		std::string m_type;
 		std::string m_name;
+		std::string m_type;
 
 		static LEVEL level;
 

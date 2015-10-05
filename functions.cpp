@@ -9,9 +9,9 @@ namespace OpepFunctions
 
 	using namespace std;
 
-	int index_of(vector<string> vec, string elementToSearch)
+	size_t index_of(vector<string> vec, string elementToSearch)
 	{
-		for(int i=0; i<vec.size(); ++i) {
+		for(size_t i=0; i<vec.size(); ++i) {
 			if(vec[i] == elementToSearch) {
 				return i;
 			}

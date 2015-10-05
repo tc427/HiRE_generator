@@ -12,7 +12,7 @@
 namespace OpepFunctions
 {
 
-	int index_of(std::vector<std::string> vec, std::string elementToSearch);
+	size_t index_of(std::vector<std::string> vec, std::string elementToSearch);
 
 	std::string getFortranFloat(double n);
 

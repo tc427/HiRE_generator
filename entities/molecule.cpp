@@ -118,11 +118,11 @@ int Molecule::getIntChainsType()
 
 MOLECULE_TYPE Molecule::getMoleculeType()
 {
-	int nA(0);
-	int nC(0);
-	int nT(0);
-	int nG(0);
-	int nU(0);
+	unsigned int nA(0);
+	unsigned int nC(0);
+	unsigned int nT(0);
+	unsigned int nG(0);
+	unsigned int nU(0);
 
 	for(auto residue: getResidues())
 	{
