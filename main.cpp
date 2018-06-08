@@ -1,17 +1,18 @@
 #include <iostream>
 #include <vector>
 
+#include "fa2cg.hpp"
+
 #include "entities/molecule.hpp"
 #include "inout/pdbParser.hpp"
+#include "inout/opepInputParamWriter.h"
 #include "inout/pdbWriter.hpp"
 #include "inout/xtcParser.hpp"
-#include "geometry/vector3d.hpp"
-#include "geometry/geometry.hpp"
-#include "mathematics/stats.hpp"
 #include "geometry/analysis.hpp"
-#include "fa2cg.hpp"
+#include "geometry/geometry.hpp"
+#include "geometry/vector3d.hpp"
+#include "mathematics/stats.hpp"
 #include "param/fa2cgParam.hpp"
-#include "inout/opepInputParamWriter.h"
 
 using namespace std;
 
