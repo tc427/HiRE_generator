@@ -21,7 +21,7 @@ Molecule pdbParser::getMoleculeFromPdb(string path)
 	}
 	else  // sinon
 	{
-		cerr << "Impossible d'ouvrir le file !" << endl;
+		cerr << "Impossible to open file " << path <<  " !" << endl;
 	}
 	
 	return molecule;
