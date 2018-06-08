@@ -26,6 +26,7 @@ void ChainParameterManager::init(int chainType)
 			cout << "ERROR: PROTEIN param not yet implemented !!!" << endl;
 			break;
 		case(Molecule::UNKNOWN):
+			m_chainParameters[Molecule::UNKNOWN] = RNAParameters();
 			cout << "ERROR: UNKNOWN chain don't have any parameters !!!" << endl;
 			break;
 	}

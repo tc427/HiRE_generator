@@ -126,6 +126,7 @@ MOLECULE_TYPE Molecule::getMoleculeType()
 
 	for(auto residue: getResidues())
 	{
+    cout << residue.getType() << endl;
 		if(residue.getType() == "A") {
 			nA++;
 		} else if(residue.getType() == "C") {
@@ -136,6 +137,8 @@ MOLECULE_TYPE Molecule::getMoleculeType()
 			nG++;
 		} else if(residue.getType() == "U") {
 			nU++;
+		} else if(residue.getType() == "MG") {
+			continue;
 		} else {
 			return MOLECULE_TYPE::UNKNOWN;
 		}

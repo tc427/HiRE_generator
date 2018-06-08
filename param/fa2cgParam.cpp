@@ -36,7 +36,8 @@ void Fa2cgParam::initialise()
 				    "C4*",
 				     "CY",
 				    "C1'",
-				    "C1*" };
+				    "C1*",
+            "MG" };
 
 	fa2cg = { {  "P",   "P" },
 			  {"O5*", "O5*" },
@@ -48,7 +49,8 @@ void Fa2cgParam::initialise()
 			  {"C4*",  "CA" },
 			  { "CY",  "CY" },
 			  {"C1'",  "CY" },
-			  {"C1*",  "CY" } };
+			  {"C1*",  "CY" },
+			  { "MG",  "MG" } };
 
 
 	vector<string> A1;
