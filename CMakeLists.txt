@@ -17,5 +17,7 @@ set(program HiRE_parm)
 set(HiRElibs entities geometry inout log mathematics param)
 
 add_executable(${program} main.cpp)
+add_executable(fa2cg main_fa2cg.cpp)
 target_link_libraries(${program} mainlib ${HiRElibs})
+target_link_libraries(fa2cg mainlib ${HiRElibs})
 
