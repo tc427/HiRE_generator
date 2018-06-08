@@ -29,7 +29,7 @@ int main(int argc, char ** argv)
 	string fileName = argv[1];
 
 	Molecule molecule = pdbParser::getMoleculeFromPdb(fileName);
-	PdbWriter::write("test.pdb", molecule);
+	//PdbWriter::write("test.pdb", molecule);
 	//Analysis analysis(molecule);
 	//analysis.plotAntiSyn();
 	//analysis.plotBasesEcarts();
