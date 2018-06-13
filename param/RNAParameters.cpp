@@ -14,50 +14,50 @@ RNAParameters::~RNAParameters()
 
 void RNAParameters::init()
 {
-	atomNameToAtomType = { {"P", "P"},
-						   {"O5*", "O"},
-						   {"C5*", "C"},
-						   {"CA", "R4"},
-						   {"CY", "R1"},
-						   {"A1", "A1"},
-						   {"A2", "A2"},
-						   {"G1", "G1"},
-						   {"G2", "G2"},
-						   {"C1", "C1"},
-						   {"U1", "U1"},
-						   {"D",  "D"},
-						   {"MG", "MG"}};
+	atomNameToAtomType = {{"P", "P"},
+				{"O5*", "O"},
+				{"C5*", "C"},
+				{"CA", "R4"},
+				{"CY", "R1"},
+				{"A1", "A1"},
+				{"A2", "A2"},
+				{"G1", "G1"},
+				{"G2", "G2"},
+				{"C1", "C1"},
+				{"U1", "U1"},
+				{"D",  "D"},
+				{"MG", "MG"}};
 
 	for(map<string, string>::iterator it=atomNameToAtomType.begin(); it!=atomNameToAtomType.end(); ++it)
 	{
 		atomTypeToAtomName[it->second] = it->first;
 	}
 
-	atomTypeToMSE = { {"P", "M"},
-					  {"O", "M"},
-					  {"C", "M"},
-					  {"R4", "M"},
-					  {"R1", "S"},
-					  {"A1", "S"},
-					  {"A2", "E"},
-					  {"G1", "S"},
-					  {"G2", "E"},
-					  {"C1", "E"},
-					  {"U1", "E"},
-					  {"D", "M"},
-					  {"MG", "H"} };
+	atomTypeToMSE = {{"P", "M"},
+				{"O", "M"},
+				{"C", "M"},
+				{"R4", "M"},
+				{"R1", "S"},
+				{"A1", "S"},
+				{"A2", "E"},
+				{"G1", "S"},
+				{"G2", "E"},
+				{"C1", "E"},
+				{"U1", "E"},
+				{"D", "M"},
+				{"MG", "H"} };
 
-	residueLetterToResidueNumber = { { "G", 1},
-									 {"A", 2},
-									 {"C", 3},
-									 {"U", 4},
-									 {"D", 5} };
+	residueLetterToResidueNumber = {{"G", 1},
+					{"A", 2},
+					{"C", 3},
+					{"U", 4},
+					{"D", 5} };
 
-	residueLetterToResidueName = { {"G", "GUA"},
-								   {"A", "ADE"},
-								   {"C", "CYT"},
-								   {"U", "URA"},
-								   {"D", "DUM"} };
+	residueLetterToResidueName = {{"G", "GUA"},
+					{"A", "ADE"},
+					{"C", "CYT"},
+					{"U", "URA"},
+					{"D", "DUM"} };
 
 	weights = { {"BR",   79.900  },
 				{ "C",   12.010  },

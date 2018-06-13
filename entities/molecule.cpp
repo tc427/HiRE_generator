@@ -179,5 +179,5 @@ void Molecule::printMolecule(ostream& out) const
 ostream &operator<<( ostream &out, Molecule const& molecule )
 {
 	molecule.printMolecule(out);
-    return out ;
+	return out ;
 }
