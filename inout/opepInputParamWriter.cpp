@@ -252,8 +252,18 @@ void OpepInputParamWriter::write(string filename)
 
 	m_topFile.close();
 
-
-	m_topFile.open("parametres.top");
+	string fileName;
+	switch(m_molecule.getMoleculeType()) {
+		case(MOLECULE_TYPE::RNA):
+		case(MOLECULE_TYPE::DNA):
+				fileName = "parametres_RNA.top";
+				break;
+		case(MOLECULE_TYPE::PROTEIN):
+		case(MOLECULE_TYPE::UNKNOWN):
+				fileName = "parametres.top";
+				break;
+	}
+	m_topFile.open(fileName);
 
 	printRecap(bondNumbers.size()/3, angleNumbers.size()/4, dihedralNumbers.size()/5);
 	printAtomsDetails();
@@ -479,7 +489,19 @@ void OpepInputParamWriter::writeBaselistFile()
 
 void OpepInputParamWriter::writeIchainFile()
 {
-	ofstream ichainfile("ichain.dat");
+	string fileName;
+	switch(m_molecule.getMoleculeType()) {
+		case(MOLECULE_TYPE::RNA):
+		case(MOLECULE_TYPE::DNA):
+				fileName = "ichain_RNA.dat";
+				break;
+		case(MOLECULE_TYPE::PROTEIN):
+		case(MOLECULE_TYPE::UNKNOWN):
+				fileName = "ichain.dat";
+				break;
+	}
+
+	ofstream ichainfile(fileName);
 
 	ichainfile << m_molecule.getChains().size() << endl;
 
