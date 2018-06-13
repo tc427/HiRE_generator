@@ -21,6 +21,7 @@ void OpepInputParamWriter::write(string filename, bool isCircular= false)
 	for(Residue residue: m_molecule.getResidues())
 	{
 		Chain* chain = residue.getParent();
+		m_chainParameters = ChainParameterManager::getParametersForChainType(chain->getIntType());
 		int residueNumber(residue.getNumber());
 		int n(0);
 
@@ -465,6 +466,7 @@ void OpepInputParamWriter::writeBaselistFile()
 
 	for(Residue residue: m_molecule.getResidues())
 	{
+		m_chainParameters = ChainParameterManager::getParametersForChainType(residue.getParent()->getIntType());
 		auto const& lastN = residue.getAtoms()[residue.getAtoms().size() - 1].getNumber();
 		auto const& lastT = m_chainParameters.getResidueLetterToResidueNumber(residue.getType());
 		baselistFile << lastN <<  " " << lastT << endl;

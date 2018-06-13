@@ -129,10 +129,14 @@ int Chain::getIntType()
 	size_t nT = std::count(sequence.begin(), sequence.end(), 'T');
 	size_t nA = std::count(sequence.begin(), sequence.end(), 'A');
 	size_t nG = std::count(sequence.begin(), sequence.end(), 'G');
+	size_t nD = std::count(sequence.begin(), sequence.end(), 'D');
 
-	if(sequence.size() == nA+nC+nT+nG) {
+	cout << "getIntType" << endl;
+	cout << sequence << endl;
+	cout << nU << nC << nT << nA << nG << nD << endl;
+	if(sequence.size()-nD == nA+nC+nT+nG) {
 		return Chain::DNA;
-	} else if(sequence.size() == nA+nC+nU+nG) {
+	} else if(sequence.size()-nD == nA+nC+nU+nG) {
 		return Chain::RNA;
 	} else {
 		cout << "ERROR: Cannot determine chain type for sequence :" << endl;

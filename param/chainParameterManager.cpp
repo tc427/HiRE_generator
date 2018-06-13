@@ -27,7 +27,7 @@ void ChainParameterManager::init(int chainType)
 			break;
 		case(Molecule::UNKNOWN):
 			m_chainParameters[Molecule::UNKNOWN] = RNAParameters();
-			cout << "ERROR: UNKNOWN chain don't have any parameters !!!" << endl;
+			cerr << "UNKNOWN chain, using RNA parameters." << endl;
 			break;
 	}
 }

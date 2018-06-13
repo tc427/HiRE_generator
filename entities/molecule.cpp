@@ -118,35 +118,25 @@ int Molecule::getIntChainsType()
 
 MOLECULE_TYPE Molecule::getMoleculeType()
 {
-	unsigned int nA(0);
-	unsigned int nC(0);
-	unsigned int nT(0);
-	unsigned int nG(0);
-	unsigned int nU(0);
-
+	std::map<std::string, unsigned int> restypeCount;
 	for(auto residue: getResidues())
 	{
-    cout << residue.getType() << endl;
-		if(residue.getType() == "A") {
-			nA++;
-		} else if(residue.getType() == "C") {
-			nC++;
-		} else if(residue.getType() == "T") {
-			nT++;
-		} else if(residue.getType() == "G") {
-			nG++;
-		} else if(residue.getType() == "U") {
-			nU++;
-		} else if(residue.getType() == "MG") {
-			continue;
-		} else {
-			return MOLECULE_TYPE::UNKNOWN;
-		}
+		restypeCount[residue.getType()] += 1;
 	}
+	cout << "restypes: " << endl;
+	for(auto & rc: restypeCount)
+	{
+		cout << rc.first << rc.second << endl;
+	}
+	cout << "==rt==" << endl;
 
-	if(nA+nC+nT+nG == getResidues().size()) {
+	if(restypeCount["DA"] + restypeCount["DC"] + restypeCount["DG"] + restypeCount["DT"] == getResidues().size()) {
 		return MOLECULE_TYPE::DNA;
-	} else if (nA+nC+nG+nU  == getResidues().size() ){
+	} else if(restypeCount["A"] + restypeCount["C"] + restypeCount["G"] + restypeCount["U"] == getResidues().size()) {
+		return MOLECULE_TYPE::RNA;
+	// hybrid case, say it's RNA
+	} else if(restypeCount["A"] + restypeCount["C"] + restypeCount["G"] + restypeCount["U"] +
+		  restypeCount["DA"] + restypeCount["DC"] + restypeCount["DG"] + restypeCount["DT"] == getResidues().size()) {
 		return MOLECULE_TYPE::RNA;
 	} else {
 		return MOLECULE_TYPE::UNKNOWN;
