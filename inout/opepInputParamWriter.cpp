@@ -280,17 +280,17 @@ void OpepInputParamWriter::printRecap(int nBondsInSystem, int nAnglesInSystem, i
 
 	switch(m_molecule.getMoleculeType()) {
 		case(MOLECULE_TYPE::RNA):
-				m_topFile << "RNA molecule" << endl;
-				break;
+			m_topFile << "RNA molecule" << endl;
+			break;
 		case(MOLECULE_TYPE::DNA):
-				m_topFile << "DNA molecule" << endl;
-				break;
+			m_topFile << "DNA molecule" << endl;
+			break;
 		case(MOLECULE_TYPE::PROTEIN):
-				m_topFile << "PROTEIN molecule" << endl;
-				break;
+			m_topFile << "PROTEIN molecule" << endl;
+			break;
 		case(MOLECULE_TYPE::UNKNOWN):
-				m_topFile << "UNKNOWN molecule" << endl;
-				break;
+			m_topFile << "UNKNOWN molecule" << endl;
+			break;
 	}
 
 	m_topFile << setw(6) << m_molecule.getAtoms().size();
