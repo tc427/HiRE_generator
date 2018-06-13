@@ -475,16 +475,18 @@ void OpepInputParamWriter::printDetails(vector<int> vector)
 void OpepInputParamWriter::writeBaselistFile()
 {
 	ofstream baselistFile("baselist.dat");
+	ofstream bblistFile("bblist.dat");
 
 	for(Residue residue: m_molecule.getResidues())
 	{
-		baselistFile << residue.getAtoms()[residue.getAtoms().size() - 1].getNumber();
-		baselistFile <<  " ";
-		baselistFile <<  m_chainParameters.getResidueLetterToResidueNumber(residue.getType());
-		baselistFile << endl;
+		auto const& lastN = residue.getAtoms()[residue.getAtoms().size() - 1].getNumber();
+		auto const& lastT = m_chainParameters.getResidueLetterToResidueNumber(residue.getType());
+		baselistFile << lastN <<  " " << lastT << endl;
+		bblistFile   << lastN <<  " " << lastT << " 0" << endl;
 	}
 
 	baselistFile.close();
+	bblistFile.close();
 }
 
 void OpepInputParamWriter::writeIchainFile()
