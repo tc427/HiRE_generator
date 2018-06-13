@@ -19,7 +19,7 @@ using namespace std;
 
 int main(int argc, char ** argv)
 {
-    if(argc < 3)
+    if(argc < 3 || std::string(argv[1]).find("-h") != std::string::npos  || std::string(argv[1]).find("--help") != std::string::npos)
     {
         std::cout << "Usage: " << argv[0] << " [AAfile] [CGfile]" << std::endl;
         return 0;

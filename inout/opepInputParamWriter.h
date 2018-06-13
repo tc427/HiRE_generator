@@ -17,7 +17,7 @@ class OpepInputParamWriter
 	public:
 		OpepInputParamWriter(Molecule& molecule);
 		virtual ~OpepInputParamWriter();
-		void write(std::string filename);
+		void write(std::string filename, bool isCircular);
 
 	private:
 		void printRecap(int nBondsInSystem, int nAnglesInSystem, int nDihedralsInSystem);

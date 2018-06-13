@@ -12,22 +12,8 @@ OpepInputParamWriter::~OpepInputParamWriter()
 
 }
 
-void OpepInputParamWriter::write(string filename)
+void OpepInputParamWriter::write(string filename, bool isCircular= false)
 {
-	bool isCirculare;
-
-	string answer = "";
-	while(answer != "Y" && answer != "N") {
-		cout << "Circular molecule [Y/N]?" << endl;
-		cin >> answer;
-	}
-
-	if(answer=="Y") {
-		isCirculare = true;
-	} else {
-		isCirculare = false;
-	}
-
 	vector<int> bondNumbers = vector<int>();
 	vector<int> angleNumbers = vector<int>();
 	vector<int> dihedralNumbers = vector<int>();
@@ -111,7 +97,7 @@ void OpepInputParamWriter::write(string filename)
 
 	}
 
-	if(isCirculare) {
+	if(isCircular) {
 		for(Chain chain: m_molecule.getChains()) {
 			vector<Residue> residues = chain.getResidues();
 

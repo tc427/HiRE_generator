@@ -19,14 +19,26 @@ using namespace std;
 
 int main(int argc, char ** argv)
 {
-    if(argc < 2)
+    if(argc < 2 || std::string(argv[1]).find("-h") != std::string::npos  || std::string(argv[1]).find("--help") != std::string::npos)
     {
         std::cout << "A PDB file must be passed as an argument." << std::endl;
+	std::cout << "Call: " << argv[0] << "[--circular] [PDBfile]" << std::endl;
         return 0;
     }
 
+	bool circular = false;
 	//trjconv -f min.xtc -o traj.pdb -s conf_initiale_RNA.pdb
 	string fileName = argv[1];
+	if(fileName.find("--circular") != std::string::npos)
+	{
+	    circular = true;
+	    if(argc < 3)
+	    {
+		std::cout << "A PDB file must be passed as an argument." << std::endl;
+		return 0;
+	    }
+	    fileName = argv[2];
+	}
 
 	Molecule molecule = pdbParser::getMoleculeFromPdb(fileName);
 	//PdbWriter::write("test.pdb", molecule);
@@ -42,7 +54,7 @@ int main(int argc, char ** argv)
 	PdbWriter::write("conf_initiale_RNA.pdb", faMolecule);
 	OpepInputParamWriter opepInputParamWriter(faMolecule);
 
-	opepInputParamWriter.write(name+".top");
+	opepInputParamWriter.write(name+".top", circular);
 	//PdbWriter::write("test.pdb", molecule);
 
 
