@@ -471,10 +471,6 @@ void OpepInputParamWriter::writeBaselistFile()
 
 	for(Chain & chain: m_molecule.getChains())
 	{
-		if(chain.getIntType() == Chain::IONS)
-		{
-			continue;
-		}
 		m_chainParameters = ChainParameterManager::getParametersForChainType(chain.getIntType());
 		for(Residue & residue: chain.getResidues())
 		{
