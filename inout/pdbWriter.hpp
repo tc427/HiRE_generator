@@ -21,7 +21,7 @@ class PdbWriter
 {
 	public:
 		PdbWriter();
-		static void write(std::string filename, Molecule molecule);
+		static void write(std::string filename, Molecule & molecule);
 
 	private:
 		

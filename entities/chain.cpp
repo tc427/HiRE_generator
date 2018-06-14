@@ -102,7 +102,7 @@ void Chain::printChain(ostream& out) const
 	 out << ">" ;
 }
 
-string Chain::getSequence()
+vector<string> Chain::getSequence()
 {
 	vector<int> residueNumbers;
 	for( map<int, Residue>::iterator it=m_residues.begin(); it!=m_residues.end(); ++it)
@@ -112,10 +112,10 @@ string Chain::getSequence()
 
 	sort(residueNumbers.begin(), residueNumbers.end());
 
-	string sequence;
+	vector<string> sequence;
 	for( vector<int>::iterator it=residueNumbers.begin(); it!=residueNumbers.end(); ++it)
 	{
-		sequence += m_residues[*it].getType();
+		sequence.push_back(m_residues[*it].getType());
 	}
 
 	return sequence;
@@ -123,20 +123,28 @@ string Chain::getSequence()
 
 int Chain::getIntType()
 {
-	string sequence = getSequence();
-	size_t nU = std::count(sequence.begin(), sequence.end(), 'U');
-	size_t nC = std::count(sequence.begin(), sequence.end(), 'C');
-	size_t nT = std::count(sequence.begin(), sequence.end(), 'T');
-	size_t nA = std::count(sequence.begin(), sequence.end(), 'A');
-	size_t nG = std::count(sequence.begin(), sequence.end(), 'G');
-	size_t nD = std::count(sequence.begin(), sequence.end(), 'D');
+	vector<string> sequence = getSequence();
+	size_t nU = std::count(sequence.begin(), sequence.end(), "U");
+	size_t nC = std::count(sequence.begin(), sequence.end(), "C");
+	size_t nT = std::count(sequence.begin(), sequence.end(), "T");
+	size_t nA = std::count(sequence.begin(), sequence.end(), "A");
+	size_t nG = std::count(sequence.begin(), sequence.end(), "G");
+	size_t nD = std::count(sequence.begin(), sequence.end(), "D");
+	size_t nMG = std::count(sequence.begin(), sequence.end(), "MG");
 
+	if(sequence.size() == nMG) {
+	    return Chain::IONS;
+	} else if(sequence.size()-nD == nA+nC+nT+nG) {
 		return Chain::DNA;
 	} else if(sequence.size()-nD == nA+nC+nU+nG) {
 		return Chain::RNA;
 	} else {
 		cout << "ERROR: Cannot determine chain type for sequence :" << endl;
-		cout << sequence << endl << this << endl;
+		for( auto& si: sequence)
+		{
+			cout << si;
+		}
+		cout << this << endl;
 		return Chain::UNKNOWN;
 	}
 }

@@ -7,7 +7,7 @@ PdbWriter::PdbWriter()
 	
 }
 
-void PdbWriter::write(std::string filename, Molecule molecule)
+void PdbWriter::write(std::string filename, Molecule & molecule)
 {
 	
 

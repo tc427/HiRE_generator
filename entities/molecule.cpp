@@ -126,11 +126,11 @@ MOLECULE_TYPE Molecule::getMoleculeType()
 
 	if(restypeCount["DA"] + restypeCount["DC"] + restypeCount["DG"] + restypeCount["DT"] == getResidues().size()) {
 		return MOLECULE_TYPE::DNA;
-	} else if(restypeCount["A"] + restypeCount["C"] + restypeCount["G"] + restypeCount["U"] == getResidues().size()) {
+	} else if(restypeCount["A"] + restypeCount["C"] + restypeCount["G"] + restypeCount["U"] + restypeCount["MG"]== getResidues().size()) {
 		return MOLECULE_TYPE::RNA;
 	// hybrid case, say it's RNA
 	} else if(restypeCount["A"] + restypeCount["C"] + restypeCount["G"] + restypeCount["U"] +
-		  restypeCount["DA"] + restypeCount["DC"] + restypeCount["DG"] + restypeCount["DT"] == getResidues().size()) {
+		  restypeCount["DA"] + restypeCount["DC"] + restypeCount["DG"] + restypeCount["DT"] + restypeCount["MG"] == getResidues().size()) {
 		return MOLECULE_TYPE::RNA;
 	} else {
 		return MOLECULE_TYPE::UNKNOWN;

@@ -11,7 +11,7 @@
 #include "entity.h"
 
 
-enum class MOLECULE_TYPE {RNA, DNA, PROTEIN, UNKNOWN};
+enum class MOLECULE_TYPE {RNA, DNA, PROTEIN, IONS, UNKNOWN};
 
 class Molecule : public Entity
 {

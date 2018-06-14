@@ -18,10 +18,12 @@ void OpepInputParamWriter::write(string filename, bool isCircular= false)
 	vector<int> angleNumbers = vector<int>();
 	vector<int> dihedralNumbers = vector<int>();
 
-	for(Residue residue: m_molecule.getResidues())
+	for(Chain & chain: m_molecule.getChains())
+	{
+	m_chainParameters = ChainParameterManager::getParametersForChainType(chain.getIntType());
+	for(Residue & residue: chain.getResidues())
 	{
 		Chain* chain = residue.getParent();
-		m_chainParameters = ChainParameterManager::getParametersForChainType(chain->getIntType());
 		int residueNumber(residue.getNumber());
 		int n(0);
 
@@ -96,6 +98,7 @@ void OpepInputParamWriter::write(string filename, bool isCircular= false)
 			}
 		}
 
+	}
 	}
 
 	if(isCircular) {
@@ -243,6 +246,7 @@ void OpepInputParamWriter::write(string filename, bool isCircular= false)
 	switch(m_molecule.getMoleculeType()) {
 		case(MOLECULE_TYPE::RNA):
 		case(MOLECULE_TYPE::DNA):
+		case(MOLECULE_TYPE::IONS):
 				fileName = "parametres_RNA.top";
 				break;
 		case(MOLECULE_TYPE::PROTEIN):
@@ -276,6 +280,7 @@ void OpepInputParamWriter::printRecap(int nBondsInSystem, int nAnglesInSystem, i
 {
 
 	switch(m_molecule.getMoleculeType()) {
+		case(MOLECULE_TYPE::IONS):
 		case(MOLECULE_TYPE::RNA):
 			m_topFile << "RNA molecule" << endl;
 			break;
@@ -464,13 +469,20 @@ void OpepInputParamWriter::writeBaselistFile()
 	ofstream baselistFile("baselist.dat");
 	ofstream bblistFile("bblist.dat");
 
-	for(Residue residue: m_molecule.getResidues())
+	for(Chain & chain: m_molecule.getChains())
 	{
-		m_chainParameters = ChainParameterManager::getParametersForChainType(residue.getParent()->getIntType());
-		auto const& lastN = residue.getAtoms()[residue.getAtoms().size() - 1].getNumber();
-		auto const& lastT = m_chainParameters.getResidueLetterToResidueNumber(residue.getType());
-		baselistFile << lastN <<  " " << lastT << endl;
-		bblistFile   << lastN <<  " " << lastT << " 0" << endl;
+		if(chain.getIntType() == Chain::IONS)
+		{
+			continue;
+		}
+		m_chainParameters = ChainParameterManager::getParametersForChainType(chain.getIntType());
+		for(Residue & residue: chain.getResidues())
+		{
+			auto const& lastN = residue.getAtoms()[residue.getAtoms().size() - 1].getNumber();
+			auto const& lastT = m_chainParameters.getResidueLetterToResidueNumber(residue.getType());
+			baselistFile << lastN <<  " " << lastT << endl;
+			bblistFile   << lastN <<  " " << lastT << " 0" << endl;
+		}
 	}
 
 	baselistFile.close();
@@ -481,6 +493,7 @@ void OpepInputParamWriter::writeIchainFile()
 {
 	string fileName;
 	switch(m_molecule.getMoleculeType()) {
+		case(MOLECULE_TYPE::IONS):
 		case(MOLECULE_TYPE::RNA):
 		case(MOLECULE_TYPE::DNA):
 				fileName = "ichain_RNA.dat";

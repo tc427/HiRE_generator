@@ -31,13 +31,13 @@ class Chain : public Entity
 		void setParent(Molecule *parent);
 
 		int checkAtomsNumbers(int atomNumber);
-		std::string getSequence();
+		std::vector<std::string> getSequence();
 		int getIntType();
 		void printChain(std::ostream& out) const;
 
 		static int getNChains();
 
-		enum CHAIN_TYPE {RNA, DNA, PROTEIN, UNKNOWN};
+		enum CHAIN_TYPE {RNA, DNA, PROTEIN, IONS, UNKNOWN};
 
 	private:
 		std::map<int, Residue> m_residues;

@@ -90,6 +90,8 @@ Molecule pdbParser::parsePdb(ifstream& pdbFile)
 					atomType = "O";
 				else if(atomName.find("N") != std::string::npos)
 					atomType = "N";
+				else if(atomName.find("MG") != std::string::npos)
+					atomType = "MG";
 				else
 					atomType = "C";
 
