@@ -123,12 +123,6 @@ MOLECULE_TYPE Molecule::getMoleculeType()
 	{
 		restypeCount[residue.getType()] += 1;
 	}
-	cout << "restypes: " << endl;
-	for(auto & rc: restypeCount)
-	{
-		cout << rc.first << rc.second << endl;
-	}
-	cout << "==rt==" << endl;
 
 	if(restypeCount["DA"] + restypeCount["DC"] + restypeCount["DG"] + restypeCount["DT"] == getResidues().size()) {
 		return MOLECULE_TYPE::DNA;
