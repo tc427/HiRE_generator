@@ -233,3 +233,4 @@ void RNAParameters::init()
 		           { "P", 0,  "O", 0,  "C", 0, "R4", 0,0.83,   0.0, 3  },       // VER MODIF Mar 9
                            {"R4", 0,  "P", 1,  "O", 1,  "C", 1,1.00,   0.0, 2  } };       // Alfa val AMBER  history: 95 -> 85
         
+}
