@@ -4,7 +4,7 @@ using namespace std;
 
 OpepInputParamWriter::OpepInputParamWriter(Molecule& molecule) : m_molecule(molecule), m_chainParameters(ChainParameterManager::getParametersForChainType(m_molecule.getIntChainsType()))
 {
-	m_atomTypesInSystem = {"C", "O", "P", "R4", "R1", "G1", "G2", "A1", "A2", "U1", "C1", "D", "MG"};
+	m_atomTypesInSystem = {"C", "O", "P", "O3", "R4", "R1", "G1", "G2", "A1", "A2", "U1", "C1", "D", "MG"};
 }
 
 OpepInputParamWriter::~OpepInputParamWriter()
