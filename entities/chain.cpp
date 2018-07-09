@@ -123,20 +123,20 @@ vector<string> Chain::getSequence()
 
 int Chain::getIntType()
 {
+	// map residue type (string) to count
+	map<std::string, unsigned int> rc;
 	vector<string> sequence = getSequence();
-	size_t nU = std::count(sequence.begin(), sequence.end(), "U");
-	size_t nC = std::count(sequence.begin(), sequence.end(), "C");
-	size_t nT = std::count(sequence.begin(), sequence.end(), "T");
-	size_t nA = std::count(sequence.begin(), sequence.end(), "A");
-	size_t nG = std::count(sequence.begin(), sequence.end(), "G");
-	size_t nD = std::count(sequence.begin(), sequence.end(), "D");
-	size_t nMG = std::count(sequence.begin(), sequence.end(), "MG");
+	for(auto rseq: sequence)
+	{
+		rc[rseq] += 1;
+	}
 
-	if(sequence.size() == nMG) {
+
+	if(sequence.size() == rc["MG"]) {
 	    return Chain::IONS;
-	} else if(sequence.size()-nD == nA+nC+nT+nG) {
+	} else if(sequence.size()-rc["D"] == rc["DA"]+rc["DC"]+rc["DT"]+rc["DG"]) {
 		return Chain::DNA;
-	} else if(sequence.size()-nD == nA+nC+nU+nG) {
+	} else if(sequence.size()-rc["D"] == rc["A"]+rc["C"]+rc["U"]+rc["G"]) {
 		return Chain::RNA;
 	} else {
 		cout << "ERROR: Cannot determine chain type for sequence :" << endl;

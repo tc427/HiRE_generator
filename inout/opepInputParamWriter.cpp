@@ -526,7 +526,7 @@ void OpepInputParamWriter::writeCshFile()
 	} else if(m_molecule.getMoleculeType() == MOLECULE_TYPE::RNA) {
 		cshFile << "RNA" << endl;
 	} else {
-		cout << "ERROR: UNKNOWN molecule type in WriteCshFile" << endl;
+		cerr << "ERROR: UNKNOWN molecule type in WriteCshFile" << endl;
 	}
 
 	cshFile.close();
