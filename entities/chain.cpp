@@ -138,13 +138,18 @@ int Chain::getIntType()
 		return Chain::DNA;
 	} else if(sequence.size()-rc["D"] == rc["A"]+rc["C"]+rc["U"]+rc["G"]) {
 		return Chain::RNA;
+	} else if(sequence.size()-rc["D"] == rc["A"]+rc["C"]+rc["T"]+rc["G"]) {
+		return Chain::DNA;
 	} else {
 		cout << "ERROR: Cannot determine chain type for sequence :" << endl;
 		for( auto& si: sequence)
 		{
 			cout << si;
 		}
-		cout << this << endl;
+		cout << endl;
+		cout << "seq length: " << sequence.size() << endl;
+		cout << "# DNA residues: " << rc["DA"]+rc["DC"]+rc["DT"]+rc["DG"] << endl;
+		cout << "# RNA residues: " << rc["A"]+rc["C"]+rc["U"]+rc["G"] << endl;
 		return Chain::UNKNOWN;
 	}
 }

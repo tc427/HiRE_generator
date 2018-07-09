@@ -132,6 +132,9 @@ MOLECULE_TYPE Molecule::getMoleculeType()
 	} else if(restypeCount["A"] + restypeCount["C"] + restypeCount["G"] + restypeCount["U"] +
 		  restypeCount["DA"] + restypeCount["DC"] + restypeCount["DG"] + restypeCount["DT"] + restypeCount["MG"] == getResidues().size()) {
 		return MOLECULE_TYPE::RNA;
+	// DNA, but with A C G T
+	} else if(restypeCount["A"] + restypeCount["C"] + restypeCount["G"] + restypeCount["T"] + restypeCount["MG"]  == getResidues().size()) {
+		return MOLECULE_TYPE::DNA;
 	} else {
 		return MOLECULE_TYPE::UNKNOWN;
 	}
