@@ -1,0 +1,2 @@
+setenv NATOMS			143
+setenv MOLECULE_TYPE			RNA
