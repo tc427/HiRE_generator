@@ -1,3 +1,6 @@
+#include <iostream>
+
+#include "../geometry/vector3d.hpp"
 #include "opepInputParamWriter.h"
 
 using namespace std;
@@ -20,111 +23,20 @@ void OpepInputParamWriter::write(string filename, bool isCircular= false)
 
 	for(Chain & chain: m_molecule.getChains())
 	{
-	m_chainParameters = ChainParameterManager::getParametersForChainType(chain.getIntType());
-	for(Residue & residue: chain.getResidues())
-	{
-		int residueNumber(residue.getNumber());
-		int n(0);
-
-		for(BondParam bondParam: m_chainParameters.getBonds())
+		m_chainParameters = ChainParameterManager::getParametersForChainType(chain.getIntType());
+		for(Residue & residue: chain.getResidues())
 		{
-			n++;
-			if( chain.hasResidue(residueNumber+bondParam.decalageAtom1) &&
-				chain.hasResidue(residueNumber+bondParam.decalageAtom2) )
-			{
-				Residue residue1 = chain.getResidue(residueNumber+bondParam.decalageAtom1);
-				Residue residue2 = chain.getResidue(residueNumber+bondParam.decalageAtom2);
-
-				if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom1) ) &&
-					 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom2) ) )
-				{
-					bondNumbers.push_back(3*( residue1.getAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom1) ).getNumber() -1 ) );
-					bondNumbers.push_back(3*( residue2.getAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom2) ).getNumber() -1 ) );
-					bondNumbers.push_back(n);
-				}
-			}
-		}
-
-		n = 0;
-		for(AngleParam angleParam: m_chainParameters.getAngles())
-		{
-			n++;
-			if( chain.hasResidue(residueNumber+angleParam.decalageAtom1) &&
-				chain.hasResidue(residueNumber+angleParam.decalageAtom2) &&
-				chain.hasResidue(residueNumber+angleParam.decalageAtom3) )
-			{
-				Residue residue1 = chain.getResidue(residueNumber+angleParam.decalageAtom1);
-				Residue residue2 = chain.getResidue(residueNumber+angleParam.decalageAtom2);
-				Residue residue3 = chain.getResidue(residueNumber+angleParam.decalageAtom3);
-
-				if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom1) ) &&
-					 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom2) ) &&
-					 residue3.hasAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom3) ) )
-				{
-					angleNumbers.push_back(3*( residue1.getAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom1) ).getNumber() -1 ) );
-					angleNumbers.push_back(3*( residue2.getAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom2) ).getNumber() -1 ) );
-					angleNumbers.push_back(3*( residue3.getAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom3) ).getNumber() -1 ) );
-					angleNumbers.push_back(n);
-				}
-			}
-		}
-
-		n = 0;
-		for(DihedralParam dihedralParam: m_chainParameters.getDiedrals())
-		{
-			n++;
-			if( chain.hasResidue(residueNumber+dihedralParam.decalageAtom1) &&
-				chain.hasResidue(residueNumber+dihedralParam.decalageAtom2) &&
-				chain.hasResidue(residueNumber+dihedralParam.decalageAtom3) &&
-				chain.hasResidue(residueNumber+dihedralParam.decalageAtom4) )
-			{
-				Residue residue1 = chain.getResidue(residueNumber+dihedralParam.decalageAtom1);
-				Residue residue2 = chain.getResidue(residueNumber+dihedralParam.decalageAtom2);
-				Residue residue3 = chain.getResidue(residueNumber+dihedralParam.decalageAtom3);
-				Residue residue4 = chain.getResidue(residueNumber+dihedralParam.decalageAtom4);
-
-				if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom1) ) &&
-					 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom2) ) &&
-					 residue3.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom3) ) &&
-					 residue4.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom4) ) )
-				{
-					dihedralNumbers.push_back(3*( residue1.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom1) ).getNumber() -1 ) );
-					dihedralNumbers.push_back(3*( residue2.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom2) ).getNumber() -1 ) );
-					dihedralNumbers.push_back(3*( residue3.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom3) ).getNumber() -1 ) );
-					dihedralNumbers.push_back(3*( residue4.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom4) ).getNumber() -1 ) );
-					dihedralNumbers.push_back(n);
-				}
-			}
-		}
-
-	}
-	}
-
-	if(isCircular) {
-		for(Chain chain: m_molecule.getChains()) {
-			vector<Residue> residues = chain.getResidues();
-
-			Residue firstResidue = residues[0];
-			Residue lastResidue = residues[residues.size() - 1];
+			int residueNumber(residue.getNumber());
 			int n(0);
 
 			for(BondParam bondParam: m_chainParameters.getBonds())
 			{
 				n++;
-				Residue residue1;
-				Residue residue2;
-				if(bondParam.decalageAtom1==1 || bondParam.decalageAtom2==1) {
-
-					if(bondParam.decalageAtom1==1) {
-						residue1=lastResidue;
-					} else {
-						residue1=firstResidue;
-					}
-					if(bondParam.decalageAtom2==1) {
-						residue2=lastResidue;
-					} else {
-						residue2=firstResidue;
-					}
+				if( chain.hasResidue(residueNumber+bondParam.decalageAtom1) &&
+					chain.hasResidue(residueNumber+bondParam.decalageAtom2) )
+				{
+					Residue residue1 = chain.getResidue(residueNumber+bondParam.decalageAtom1);
+					Residue residue2 = chain.getResidue(residueNumber+bondParam.decalageAtom2);
 
 					if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom1) ) &&
 						 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom2) ) )
@@ -140,28 +52,13 @@ void OpepInputParamWriter::write(string filename, bool isCircular= false)
 			for(AngleParam angleParam: m_chainParameters.getAngles())
 			{
 				n++;
-				Residue residue1;
-				Residue residue2;
-				Residue residue3;
-				if(angleParam.decalageAtom1==1 || angleParam.decalageAtom2==1
-											   || angleParam.decalageAtom3==1)
+				if( chain.hasResidue(residueNumber+angleParam.decalageAtom1) &&
+					chain.hasResidue(residueNumber+angleParam.decalageAtom2) &&
+					chain.hasResidue(residueNumber+angleParam.decalageAtom3) )
 				{
-
-					if(angleParam.decalageAtom1==1) {
-						residue1=lastResidue;
-					} else {
-						residue1=firstResidue;
-					}
-					if(angleParam.decalageAtom2==1) {
-						residue2=lastResidue;
-					} else {
-						residue2=firstResidue;
-					}
-					if(angleParam.decalageAtom3==1) {
-						residue3=lastResidue;
-					} else {
-						residue3=firstResidue;
-					}
+					Residue residue1 = chain.getResidue(residueNumber+angleParam.decalageAtom1);
+					Residue residue2 = chain.getResidue(residueNumber+angleParam.decalageAtom2);
+					Residue residue3 = chain.getResidue(residueNumber+angleParam.decalageAtom3);
 
 					if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom1) ) &&
 						 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom2) ) &&
@@ -179,35 +76,15 @@ void OpepInputParamWriter::write(string filename, bool isCircular= false)
 			for(DihedralParam dihedralParam: m_chainParameters.getDiedrals())
 			{
 				n++;
-				Residue residue1;
-				Residue residue2;
-				Residue residue3;
-				Residue residue4;
-				if(dihedralParam.decalageAtom1==1 || dihedralParam.decalageAtom2==1
-												  || dihedralParam.decalageAtom3==1
-												  || dihedralParam.decalageAtom4==1)
+				if( chain.hasResidue(residueNumber+dihedralParam.decalageAtom1) &&
+					chain.hasResidue(residueNumber+dihedralParam.decalageAtom2) &&
+					chain.hasResidue(residueNumber+dihedralParam.decalageAtom3) &&
+					chain.hasResidue(residueNumber+dihedralParam.decalageAtom4) )
 				{
-
-					if(dihedralParam.decalageAtom1==1) {
-						residue1=lastResidue;
-					} else {
-						residue1=firstResidue;
-					}
-					if(dihedralParam.decalageAtom2==1) {
-						residue2=lastResidue;
-					} else {
-						residue2=firstResidue;
-					}
-					if(dihedralParam.decalageAtom3==1) {
-						residue3=lastResidue;
-					} else {
-						residue3=firstResidue;
-					}
-					if(dihedralParam.decalageAtom4==1) {
-						residue4=lastResidue;
-					} else {
-						residue4=firstResidue;
-					}
+					Residue residue1 = chain.getResidue(residueNumber+dihedralParam.decalageAtom1);
+					Residue residue2 = chain.getResidue(residueNumber+dihedralParam.decalageAtom2);
+					Residue residue3 = chain.getResidue(residueNumber+dihedralParam.decalageAtom3);
+					Residue residue4 = chain.getResidue(residueNumber+dihedralParam.decalageAtom4);
 
 					if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom1) ) &&
 						 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom2) ) &&
@@ -220,6 +97,162 @@ void OpepInputParamWriter::write(string filename, bool isCircular= false)
 						dihedralNumbers.push_back(3*( residue4.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom4) ).getNumber() -1 ) );
 						dihedralNumbers.push_back(n);
 					}
+				}
+			}
+
+		}
+
+		vector<Residue> residues = chain.getResidues();
+
+		Residue firstResidue = residues[0];
+		Residue lastResidue = residues[residues.size() - 1];
+		Atom a1;
+		if(!firstResidue.hasAtom("P") or !firstResidue.hasAtom("O5*") or
+		   !lastResidue.hasAtom("CA")) {
+			continue;
+		}
+		if(firstResidue.hasAtom("P")) {
+			a1 = firstResidue.getAtom("P");
+		} else {
+			a1 = firstResidue.getAtom("O5*");
+		}
+		Atom a2 = lastResidue.getAtom("CA");
+
+		Vector3d p1 = a1.getCoordinates().front();
+		Vector3d p2 = a2.getCoordinates().front();
+
+		Vector3d p = p1 - p2;
+		float d = p.getX()*p.getX() + p.getY()*p.getY() + p.getZ()*p.getZ();
+		bool circ = false;
+		// test if circular
+		if(d < 5*5 or isCircular) {
+			std::string yn = "";
+			while(yn != "y" && yn != "n") {
+				std::cout << "Treat chain as circular (y/n)?" << std::endl;
+				std::cin >> yn;
+			}
+			if(yn == "y") {
+			    circ = true;
+			}
+			std::cout << "Treating chain as " << (circ? "": "not ") << "circular." << std::endl;
+		}
+		if(!circ) {
+			continue;
+		}
+
+		int n(0);
+
+		for(BondParam bondParam: m_chainParameters.getBonds())
+		{
+			n++;
+			Residue residue1;
+			Residue residue2;
+			if(bondParam.decalageAtom1==1 || bondParam.decalageAtom2==1) {
+
+				if(bondParam.decalageAtom1==1) {
+					residue1=lastResidue;
+				} else {
+					residue1=firstResidue;
+				}
+				if(bondParam.decalageAtom2==1) {
+					residue2=lastResidue;
+				} else {
+					residue2=firstResidue;
+				}
+
+				if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom1) ) &&
+					 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom2) ) )
+				{
+					bondNumbers.push_back(3*( residue1.getAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom1) ).getNumber() -1 ) );
+					bondNumbers.push_back(3*( residue2.getAtom( m_chainParameters.getAtomTypeToAtomName( bondParam.atom2) ).getNumber() -1 ) );
+					bondNumbers.push_back(n);
+				}
+			}
+		}
+
+		n = 0;
+		for(AngleParam angleParam: m_chainParameters.getAngles())
+		{
+			n++;
+			Residue residue1;
+			Residue residue2;
+			Residue residue3;
+			if(angleParam.decalageAtom1==1 || angleParam.decalageAtom2==1
+										   || angleParam.decalageAtom3==1)
+			{
+
+				if(angleParam.decalageAtom1==1) {
+					residue1=lastResidue;
+				} else {
+					residue1=firstResidue;
+				}
+				if(angleParam.decalageAtom2==1) {
+					residue2=lastResidue;
+				} else {
+					residue2=firstResidue;
+				}
+				if(angleParam.decalageAtom3==1) {
+					residue3=lastResidue;
+				} else {
+					residue3=firstResidue;
+				}
+
+				if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom1) ) &&
+					 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom2) ) &&
+					 residue3.hasAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom3) ) )
+				{
+					angleNumbers.push_back(3*( residue1.getAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom1) ).getNumber() -1 ) );
+					angleNumbers.push_back(3*( residue2.getAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom2) ).getNumber() -1 ) );
+					angleNumbers.push_back(3*( residue3.getAtom( m_chainParameters.getAtomTypeToAtomName( angleParam.atom3) ).getNumber() -1 ) );
+					angleNumbers.push_back(n);
+				}
+			}
+		}
+
+		n = 0;
+		for(DihedralParam dihedralParam: m_chainParameters.getDiedrals())
+		{
+			n++;
+			Residue residue1;
+			Residue residue2;
+			Residue residue3;
+			Residue residue4;
+			if(dihedralParam.decalageAtom1==1 || dihedralParam.decalageAtom2==1
+											  || dihedralParam.decalageAtom3==1
+											  || dihedralParam.decalageAtom4==1)
+			{
+
+				if(dihedralParam.decalageAtom1==1) {
+					residue1=lastResidue;
+				} else {
+					residue1=firstResidue;
+				}
+				if(dihedralParam.decalageAtom2==1) {
+					residue2=lastResidue;
+				} else {
+					residue2=firstResidue;
+				}
+				if(dihedralParam.decalageAtom3==1) {
+					residue3=lastResidue;
+				} else {
+					residue3=firstResidue;
+				}
+				if(dihedralParam.decalageAtom4==1) {
+					residue4=lastResidue;
+				} else {
+					residue4=firstResidue;
+				}
+
+				if ( residue1.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom1) ) &&
+					 residue2.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom2) ) &&
+					 residue3.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom3) ) &&
+					 residue4.hasAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom4) ) )
+				{
+					dihedralNumbers.push_back(3*( residue1.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom1) ).getNumber() -1 ) );
+					dihedralNumbers.push_back(3*( residue2.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom2) ).getNumber() -1 ) );
+					dihedralNumbers.push_back(3*( residue3.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom3) ).getNumber() -1 ) );
+					dihedralNumbers.push_back(3*( residue4.getAtom( m_chainParameters.getAtomTypeToAtomName( dihedralParam.atom4) ).getNumber() -1 ) );
+					dihedralNumbers.push_back(n);
 				}
 			}
 		}
