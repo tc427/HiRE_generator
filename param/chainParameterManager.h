@@ -3,7 +3,7 @@
 #include <map>
 
 #include "chainParameters.h"
-#include "../entities/molecule.hpp"
+#include "../entities/chain.hpp"
 #include "RNAParameters.h"
 #include "DNAParameters.h"
 

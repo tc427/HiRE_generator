@@ -16,17 +16,21 @@ ChainParameters& ChainParameterManager::getParametersForChainType(int chainType)
 void ChainParameterManager::init(int chainType)
 {
 	switch(chainType) {
-		case(Molecule::RNA):
-			m_chainParameters[Molecule::RNA] = RNAParameters();
+		case(Chain::RNA):
+			m_chainParameters[Chain::RNA] = RNAParameters();
 			break;
-		case(Molecule::DNA):
-			m_chainParameters[Molecule::DNA] = DNAParameters();
+		case(Chain::DNA):
+			m_chainParameters[Chain::DNA] = DNAParameters();
 			break;
-		case(Molecule::PROTEIN):
+		case(Chain::PROTEIN):
 			cout << "ERROR: PROTEIN param not yet implemented !!!" << endl;
 			break;
-		case(Molecule::UNKNOWN):
-			m_chainParameters[Molecule::UNKNOWN] = RNAParameters();
+		case(Chain::IONS):
+			cout << "Using RNA parameter set for ions" << endl;
+			m_chainParameters[Chain::RNA] = RNAParameters();
+			break;
+		case(Chain::UNKNOWN):
+			m_chainParameters[Chain::UNKNOWN] = RNAParameters();
 			cerr << "UNKNOWN chain, using RNA parameters." << endl;
 			break;
 	}
