@@ -377,8 +377,11 @@ void OpepInputParamWriter::printAtomsDetails()
 void OpepInputParamWriter::printResiduesDetails()
 {
 	int n(0);
-	for(Residue residue: m_molecule.getResidues())
+	for(Chain & chain: m_molecule.getChains())
 	{
+		m_chainParameters = ChainParameterManager::getParametersForChainType(chain.getIntType());
+		for(Residue & residue: chain.getResidues())
+		{
 		if(n%20== 0 && n>0) {
 			m_topFile << endl; }
 		m_topFile << m_chainParameters.getResidueLetterToResidueName( residue.getType() );
@@ -388,6 +391,7 @@ void OpepInputParamWriter::printResiduesDetails()
 			m_topFile << " ";
 		}
 		n++;
+		}
 	}
 	m_topFile << endl;
 

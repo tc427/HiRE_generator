@@ -27,7 +27,7 @@ void ChainParameterManager::init(int chainType)
 			break;
 		case(Chain::IONS):
 			cout << "Using RNA parameter set for ions" << endl;
-			m_chainParameters[Chain::RNA] = RNAParameters();
+			m_chainParameters[Chain::IONS] = RNAParameters();
 			break;
 		case(Chain::UNKNOWN):
 			m_chainParameters[Chain::UNKNOWN] = RNAParameters();
